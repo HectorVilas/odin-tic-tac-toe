@@ -31,10 +31,10 @@ I've been reading and watching videos about patterns and this kind of functions,
 The page:
 
 - ❌a way to write and edit player names (modal?)
-- ❌a play area in the center
-- - ❌made with grid
-- - ❌size adjusted by viewport
-- - ❌9 `div`s autofilling the cells
+- ✔️a play area in the center
+- - ✔️made with grid
+- - ~~size adjusted by viewport~~ (static values has been used for aesthetics)
+- - ✔️9 `div`s autofilling the cells
 - ❌a reset button
 
 The code:
@@ -57,3 +57,18 @@ The game:
 - - ❌if there's a line, the game ends, the player that made the line wins
 - - ❓when another game starts, first play is for the player that lost
 - - ❓on a tie, the starting player is chosen at random
+
+
+## update 1
+I had no idea where to start, so I started with the less important but fun part: the styling. After experimenting for hours, I came with a conclusion:
+- 9 divs with static dimension values
+- a tiled background aligned with the play area
+- pencil lines drawing the lines in the play area
+
+![](./READMEmd/progress01.gif)
+
+Now it looks like a school paper with grid pattern. With a little rotation and position adjusts, I made the lines look irregular, to give a hand-drawn feel.
+
+### credits: 
+
+Behind my grid image, there's a [paper texture](https://www.freepik.com/free-photo/paper-textured-background_2971954.htm), made by [rawpixel.com](https://www.freepik.com/author/rawpixel-com) on [Freepik](https://www.freepik.com/).

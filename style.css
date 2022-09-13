@@ -1,0 +1,80 @@
+:root {
+  --grid-paper: 2px;
+  --cell: 175px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+
+}
+html {
+  height: 100vh;
+  background:
+    url(./media/images/paper-grid-pattern.png),
+    radial-gradient(at top left,
+      rgba(212, 226, 173, 0.05),
+      rgba(231, 236, 185, 0.25)
+    ),
+    url(./media/images/paper-textured-background.jpg);
+  background-position: center;
+}
+
+body {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* - - - board - - - */
+.board {
+  position: relative;
+  padding: var(--grid-paper);
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: var(--grid-paper);
+}
+
+.cell {
+  width: calc(var(--cell) - var(--grid-paper));
+  height: calc(var(--cell) - var(--grid-paper));
+} .cell:hover {
+  background-color: rgba(231, 236, 185, 0.5);
+  cursor: pointer;
+}
+.line {
+  position: absolute;
+  background: url(./media/images/pencil-stroke.png) no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 15px;
+}
+.line.l1 {
+  left: 0;
+  top: 33%;
+  rotate: 1deg;
+}
+.line.l2 {
+  left: 0;
+  bottom: 31%;
+  rotate: 180deg;
+}
+.line.l3 {
+  rotate: 90.5deg;
+  top: 49%;
+  left: 17%;
+}
+.line.l4 {
+  top: 50%;
+  right: 17%;
+  rotate: 270deg;
+}
+
+/* for testing */
+** {
+  outline: 1px solid red;
+}

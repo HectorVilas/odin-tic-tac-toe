@@ -47,40 +47,80 @@ body {
   background-color: rgba(231, 236, 185, 0.5);
   cursor: pointer;
 }
+
 .line {
   position: absolute;
   background: url(./media/images/pencil-stroke.png) no-repeat;
   background-size: 100% 100%;
   width: 100%;
   height: 15px;
+  transition: clip-path .5s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
+
 .line.l1 {
   left: 0;
   top: 33%;
   rotate: 1deg;
+  animation: line-draw-1 3s;
 }
+@keyframes line-draw-1 {
+  0%, 50% {clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%); }
+  60% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+}
+
 .line.l2 {
   left: 0;
   bottom: 31%;
   rotate: 180deg;
+  animation: line-draw-2 3s;
+}
+@keyframes line-draw-2 {
+  0%, 70% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+  80% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 }
 .line.l3 {
   rotate: 90.5deg;
   top: 49%;
   left: 17%;
+  animation: line-draw-3 3s;
+}
+@keyframes line-draw-3 {
+  0%, 30% {clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%); }
+  40% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 }
 .line.l4 {
   top: 50%;
   right: 17%;
   rotate: 270deg;
+  animation: line-draw-4 3s;
+}
+@keyframes line-draw-4 {
+  0%, 10% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+  20% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 }
 
 .hand {
   position: absolute;
-  left: 60%;
-  top: 10%;
+  left: 100%;
+  top: 100%;
   transform-origin: 0 0;
-  scale: 50%;
+  scale: 75%;
+  transition: position .5s;
+  animation: board-draw 3s;
+}
+
+@keyframes board-draw {
+  0% {left: 100%; top: 100%; }
+  10% { left: 33%; top: 0% }
+  20% { left: 33%; top: 100% }
+  30% { left: 66%; top: 0% }
+  40% { left: 66%; top: 100% }
+  50% { left: 0%; top: 33%; }
+  60% { left: 100%; top: 33%; }
+  70% { left: 0%; top: 66%; }
+  80% { left: 100%; top: 66%; }
+  100% { left: 100%; top: 100%; }
 }
 
 /* for testing */

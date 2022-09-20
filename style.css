@@ -1,6 +1,14 @@
 :root {
   --grid-paper: 2px;
   --cell: 175px;
+  --lines-draw-time: 3s;
+  --paper-bg:
+    url(./media/images/paper-grid-pattern.png),
+    radial-gradient(at top left,
+      rgba(212, 226, 173, 0.05),
+      rgba(231, 236, 185, 0.25)
+    ),
+    url(./media/images/paper-textured-background.jpg);
 }
 
 html,
@@ -11,13 +19,7 @@ body {
 }
 html {
   height: 100vh;
-  background:
-    url(./media/images/paper-grid-pattern.png),
-    radial-gradient(at top left,
-      rgba(212, 226, 173, 0.05),
-      rgba(231, 236, 185, 0.25)
-    ),
-    url(./media/images/paper-textured-background.jpg);
+  background: var(--paper-bg);
   background-position: center;
 }
 
@@ -55,7 +57,6 @@ body {
   background-size: 100% 100%;
   width: 100%;
   height: 15px;
-  transition: clip-path .5s;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
@@ -66,7 +67,7 @@ body {
   clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
 }
 .line.l1.animate {
-  animation: line-draw-1 3s;
+  animation: line-draw-1 var(--lines-draw-time);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-1 {
@@ -81,7 +82,7 @@ body {
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .line.l2.animate {
-  animation: line-draw-2 3s;
+  animation: line-draw-2 var(--lines-draw-time);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-2 {
@@ -95,7 +96,7 @@ body {
   clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
 }
 .line.l3.animate {
-  animation: line-draw-3 3s ;
+  animation: line-draw-3 var(--lines-draw-time);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-3 {
@@ -109,7 +110,7 @@ body {
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .line.l4.animate{
-  animation: line-draw-4 3s;
+  animation: line-draw-4 var(--lines-draw-time);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-4 {
@@ -119,14 +120,16 @@ body {
 
 .hand {
   position: absolute;
-  left: 100%;
-  top: 100%;
+  left: 150%;
+  top: 150%;
   transform-origin: 0 0;
   scale: 75%;
   transition: position .5s;
 }
 .hand.animate {
-  animation: board-draw 3s;
+  animation: board-draw var(--lines-draw-time);
+  left: 100%;
+  top: 100%;
 }
 
 @keyframes board-draw {
@@ -142,19 +145,53 @@ body {
   100% { left: 100%; top: 100%; }
 }
 
+.page-turn {
+  position: absolute;
+  left: 150%;
+  top: 0%;
+  z-index: 2;
+  width: 100%;
+  height: 150%;
+  scale: 150%;
+  transform: rotateY(50deg) skewY(2deg);
+  filter: drop-shadow(-10rem 0 1rem rgba(0, 0, 0, .25));
+  background: var(--paper-bg);
+  box-shadow:
+    inset -10rem 0 10rem rgba(0, 0, 0, .25),
+    3rem 0 20rem rgba(0, 0, 0, .25);
+  rotate: 5deg;
+  transition: all 1.25s ease-out;
+}
+.page-turn.animate {
+  left: -350%;
+  top: -30%;
+  width: 300%;
+  rotate: 2deg;
+  filter: drop-shadow(-10rem 0 10rem rgba(0, 0, 0, .5));
+}
+
+
+
+/* buttons */
+
+.btn-start-game {
+  z-index: 1;
+  position: absolute;
+  font-size: 1.5em;
+  padding: 1rem 2rem;
+  bottom: 10%;
+}
+
 
 
 /* for general use */
 .hidden {
   display: none;
 }
+
+
+
 /* for testing */
 ** {
   outline: 1px solid red;
-}
-
-button {
-  z-index: 1;
-  font-size: 1.5em;
-  padding: 1rem 2rem;
 }

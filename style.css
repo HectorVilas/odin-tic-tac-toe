@@ -33,7 +33,8 @@ body {
 
 /* - - - board - - - */
 .board {
-  position: relative;
+  position: absolute;
+  isolation: isolate;
   padding: var(--grid-paper);
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
@@ -62,7 +63,11 @@ body {
   left: 0;
   top: 33%;
   rotate: 1deg;
+  clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
+}
+.line.l1.animate {
   animation: line-draw-1 3s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-1 {
   0%, 50% {clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%); }
@@ -73,7 +78,11 @@ body {
   left: 0;
   bottom: 31%;
   rotate: 180deg;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.line.l2.animate {
   animation: line-draw-2 3s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-2 {
   0%, 70% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
@@ -83,7 +92,11 @@ body {
   rotate: 90.5deg;
   top: 49%;
   left: 17%;
-  animation: line-draw-3 3s;
+  clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
+}
+.line.l3.animate {
+  animation: line-draw-3 3s ;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-3 {
   0%, 30% {clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%); }
@@ -93,7 +106,11 @@ body {
   top: 50%;
   right: 17%;
   rotate: 270deg;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.line.l4.animate{
   animation: line-draw-4 3s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 @keyframes line-draw-4 {
   0%, 10% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
@@ -107,6 +124,8 @@ body {
   transform-origin: 0 0;
   scale: 75%;
   transition: position .5s;
+}
+.hand.animate {
   animation: board-draw 3s;
 }
 
@@ -123,7 +142,19 @@ body {
   100% { left: 100%; top: 100%; }
 }
 
+
+
+/* for general use */
+.hidden {
+  display: none;
+}
 /* for testing */
 ** {
   outline: 1px solid red;
+}
+
+button {
+  z-index: 1;
+  font-size: 1.5em;
+  padding: 1rem 2rem;
 }

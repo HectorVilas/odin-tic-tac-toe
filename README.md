@@ -47,7 +47,7 @@ The code:
 
 The game:
 - ❌start asking for players names (player1 and player2 at default)
-- ❌draw the board, empty
+- ✔️draw the board, empty
 - ❌at random one of the player starts
 - ❌player1 places circles and player2 crosses
 - ❌each time a player places a mark, it's the other player's turn
@@ -88,3 +88,21 @@ This was made with CSS' `@keyframes`, 5 of them, for the hand and each line. The
 
 ### thoughts
 I should leave the aesthetic part for the end, but having this on screen instead of 9 squares in a plain background gives me motivation, I can keep going for hours. I saw other user's project for the tic-tac-toe practice and honestly doesn't look like they enjoyed doing it except for a very few users. I know, a frontend job won't be fun, it's a job after all, but why not have fun in the process of learning?
+
+## update 3
+After a few days of inactivity (spent time with another course, Js and Ruby basics, so I can get a certificate) I came back to this project. I wanted to give it a better feel, so my first change was make the draw animation start after pressing a button.
+
+After this, I was thinking, what will happen each time a new match starts? It's paper and pencil, just deleting it's content will look bad.
+
+I could make the hand grab an eraser and use `clip-path` to hide the lines as the eraser advances, but if I do this, even the hand gets cut by the clipping.
+
+My second idea was making the page turn, so I can delete the play area while it's covered. This is the result:
+
+![](READMEmd/progress03.gif)
+
+I spent hours on it but I'm still not convinced of how it looks, but it will do for now.
+
+### next steps:
+Before I start coding, I need to redraw the play area each new game. It works fine in the first start, but needs more work to make it's animation repeat.
+
+Another idea I had was making the hand follow the mouse cursor, but I'm not sure if I can do it, because the hand is a board's child. Maybe I can find a way, hiding the board's hand and showing another one with the same image, but still don't know how it would feel.

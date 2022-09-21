@@ -7,15 +7,9 @@ const
   btnStartGame = document.querySelector(".btn-start-game"),
   pageTurn = document.querySelector(".page-turn");
 
-  btnStartGame.addEventListener("click", () => {
-  pageTurn.classList.add("animate");
+btnStartGame.addEventListener("click", () => {
+  [line1,line2,line3,line4,hand,pageTurn].forEach(line => {
+    line.classList.add("animate")
+  });
   btnStartGame.classList.add("hidden");
-});
-
-pageTurn.addEventListener("transitionend", (e) => {
-  if(e.propertyName === "left"){
-    [line1,line2,line3,line4,hand,].forEach(line => {
-      line.classList.add("animate")
-    });
-  };
 });

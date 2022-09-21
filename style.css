@@ -128,12 +128,10 @@ body {
 }
 .hand.animate {
   animation: board-draw var(--lines-draw-time) 1s;
-  left: 100%;
-  top: 100%;
 }
 
 @keyframes board-draw {
-  0% {left: 100%; top: 100%; }
+  0% {left: 150%; top: 150%; }
   10% { left: 33%; top: 0% }
   20% { left: 33%; top: 100% }
   30% { left: 66%; top: 0% }
@@ -142,7 +140,7 @@ body {
   60% { left: 100%; top: 33%; }
   70% { left: 0%; top: 66%; }
   80% { left: 100%; top: 66%; }
-  100% { left: 100%; top: 100%; }
+  100% { left: 150%; top: 150%; }
 }
 
 .page-turn {

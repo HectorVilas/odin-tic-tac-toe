@@ -8,8 +8,21 @@ const
   pageTurn = document.querySelector(".page-turn");
 
 btnStartGame.addEventListener("click", () => {
-  [line1,line2,line3,line4,hand,pageTurn].forEach(line => {
-    line.classList.add("animate")
-  });
-  btnStartGame.classList.add("hidden");
+  pageTurn.classList.remove("animate")
+  setTimeout(() => {
+    pageTurn.classList.add("animate")
+    
+  }, 100);
+
+  setTimeout(() => {
+    [line1,line2,line3,line4,hand].forEach(line => {
+      line.classList.remove("animate")
+    });
+    setTimeout(() => {
+      [line1,line2,line3,line4,hand].forEach(line => {
+        line.classList.add("animate")
+      });
+    }, 100);
+  }, 300);
+  // btnStartGame.classList.add("hidden");
 });

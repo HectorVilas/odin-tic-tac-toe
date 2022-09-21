@@ -106,3 +106,10 @@ I spent hours on it but I'm still not convinced of how it looks, but it will do 
 Before I start coding, I need to redraw the play area each new game. It works fine in the first start, but needs more work to make it's animation repeat.
 
 Another idea I had was making the hand follow the mouse cursor, but I'm not sure if I can do it, because the hand is a board's child. Maybe I can find a way, hiding the board's hand and showing another one with the same image, but still don't know how it would feel.
+
+## update 4
+After researching a little about CSS animations, I finally achieved what I wanted: the page flip, while covering the entire page, will remove the drawing, like taking it in the same page flipping, then redraw the play area. Now it can be done any number of times, it will even remove the drawing while being drawn.
+
+![](READMEmd/progress04.gif)
+
+The game is now ready to receive the code. Each play will be done "in a new page".

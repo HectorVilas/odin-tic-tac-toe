@@ -33,7 +33,7 @@ const displayController = (() => {
     // btnStartGame.classList.add("hidden");
   };
   
-  return {addListeners, newMatch}
+  return {addListeners}
 })();
 
 //run on start

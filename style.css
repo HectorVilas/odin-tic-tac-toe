@@ -2,7 +2,7 @@
   --grid-paper: 2px;
   --cell: 175px;
   --lines-draw-time: 3s;
-  --lines-draw-delay: 1s;
+  --lines-draw-delay: 150ms;
   --paper-bg:
     url(./media/images/paper-grid-pattern.png),
     radial-gradient(at top left,
@@ -127,7 +127,7 @@ body {
   transition: position .5s;
 }
 .hand.animate {
-  animation: board-draw var(--lines-draw-time) 1s;
+  animation: board-draw var(--lines-draw-time) var(--lines-draw-delay);
 }
 
 @keyframes board-draw {

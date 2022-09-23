@@ -47,6 +47,10 @@ body {
 .cell {
   width: calc(var(--cell) - var(--grid-paper));
   height: calc(var(--cell) - var(--grid-paper));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
 } .cell:hover {
   background-color: rgba(231, 236, 185, 0.5);
   cursor: pointer;

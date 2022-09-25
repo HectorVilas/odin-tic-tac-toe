@@ -113,3 +113,74 @@ After researching a little about CSS animations, I finally achieved what I wante
 ![](READMEmd/progress04.gif)
 
 The game is now ready to receive the code. Each play will be done "in a new page".
+
+## update 5
+Little changes has been done in the last few days, unsure how to work with the code, having that animation in the middle.
+
+First I moved the listeners to a function that will run once the page loads, so I don't have anything declared as global. Then I created my first modular function to keep all the code for the visual part in a single place. Some things got renamed, I replaced the multiple `querySelector`s for a single `querySelectorAll` and, while still experimenting, I wrote some more code to simulate a game play. Without even noticing, the last action made the game playable.
+
+The next step was moving everything to new functions. Another modular function has been created to manage the game flow (give points to players, check for win condition) and a factory function one to create the two players to store each name, mark and scores.
+
+I tried to give the game a better feel adding sounds (page flip and drawing), but those only can be played from a clickable element, so I had to use some `setTimeout` to sync the drawing sounds with the pencil movements. The sounds are randomized from a list, so each page flip and line draw will sound different.
+
+Here is a little GIF showing the game working:
+
+![](READMEmd/progress05.gif)
+
+### credits:
+
+I used like 20 different sounds from different authors, here is the list for each sound and it's author profile (click to expand):
+
+<details>
+<summary><strong>[ Sound credits list ]</strong></summary>
+Paper rustling and flipping:
+
+Sound: https://freesound.org/people/gynation/sounds/82377/  
+Author: https://freesound.org/people/gynation/
+
+Sound: https://freesound.org/people/MattRuthSound/sounds/562038/  
+Author: https://freesound.org/people/MattRuthSound/
+
+Sound: https://freesound.org/people/XTYL33/sounds/68223/  
+Author: https://freesound.org/people/XTYL33/
+
+Sound: https://freesound.org/people/Juandamb/sounds/430622/  
+Author: https://freesound.org/people/Juandamb/
+
+Sound: https://freesound.org/people/Korczu/sounds/648387/  
+Author: https://freesound.org/people/Korczu/
+
+Sound: https://freesound.org/people/1bob/sounds/651514/  
+Author: https://freesound.org/people/1bob/
+
+Sound: https://freesound.org/people/krnash/sounds/389809/  
+Author: https://freesound.org/people/krnash/
+
+Sound: https://freesound.org/people/Huminaatio/sounds/159350/  
+Author: https://freesound.org/people/Huminaatio/
+
+Sound: https://freesound.org/people/MeefBeef/sounds/333256/  
+Author: https://freesound.org/people/MeefBeef/
+
+Sound: https://freesound.org/people/BenjaminNelan/sounds/353125/  
+Author: https://freesound.org/people/BenjaminNelan/
+
+Sound: https://freesound.org/people/aldenroth2/sounds/272015/  
+Author: https://freesound.org/people/aldenroth2/
+
+Sound: https://freesound.org/people/junkfood2121/sounds/248178/  
+Author: https://freesound.org/people/junkfood2121/
+
+Sound: https://freesound.org/people/vmgraw/sounds/235617/  
+Author: https://freesound.org/people/vmgraw/
+
+
+
+Pencil lines:
+
+Sound: https://freesound.org/people/kbt3/sounds/318557/  
+Author: https://freesound.org/people/kbt3/
+</details>
+
+### thoughts:
+This practice is almost done. The game can be played, but still needs to be able to add player names, show scores and messages and, if I find a way to make one, a simple AI to play against. The rest is pure animations and aesthetics.

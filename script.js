@@ -11,18 +11,21 @@ const displayController = (() => {
   const addListeners = () => {
     btnStartGame.addEventListener("click", newMatch);
     
-    cells.forEach((cell, i) => {
-      cell.addEventListener("click", () => {
-        if(gameFlow.board[i] === 0){
-          gameFlow.board[i] = gameFlow.placeSymbol();
-          cell.innerText = gameFlow.placeSymbol();
-          gameFlow.winConditions();
-          gameFlow.swapPlayer();
-        };
-      });
+    cells.forEach( cell => {
+      cell.addEventListener("click", clickCell);
     });
   };
   
+  function clickCell() {
+    const idx = this.dataset.idx;
+    if(gameFlow.board[idx] === 0){
+      gameFlow.board[idx] = gameFlow.placeMark();
+      this.innerText = gameFlow.placeMark();
+      gameFlow.winConditions();
+      gameFlow.swapPlayer();
+    };
+  };
+
   const newMatch = () => {
     pageTurn.classList.remove("animate")
     setTimeout(() => { pageTurn.classList.add("animate") }, 100);
@@ -34,7 +37,6 @@ const displayController = (() => {
       //reset game board
       cells.forEach(c => c.innerText = "");
       gameFlow.board.fill(0);
-      // gameFlow.playerOneTurn = true;
 
       setTimeout(() => {
         [...lines,hand].forEach(line => {
@@ -54,11 +56,11 @@ const gameFlow = (() => {
   function swapPlayer(){
     playerOneTurn = !playerOneTurn;
   }
-  function placeSymbol(){
+  function placeMark(){
     if(playerOneTurn) {
-      return 1;
+      return player1.getMark();
     } else {
-      return 2;
+      return player2.getMark();
     };
     
   }
@@ -77,14 +79,37 @@ const gameFlow = (() => {
       board[2] === board[4] && board[4] === board[6] && board[2] !== 0 
     ){
       let winner;
-      playerOneTurn ? winner = "player 1" : winner = "player 2";
+      if(playerOneTurn){
+        winner = player1.getName();
+        player1.addWin();
+      } else {
+        winner = player2.getName();
+        player2.addWin();
+      };
       console.log(`${winner} wins! Flawless victory.`);
+      console.log(`${player1.getName()} score: ${player1.getWin()}`);
+      console.log(`${player2.getName()} score: ${player2.getWin()}`);
     }
   };
   
-  return {winConditions, board, swapPlayer, placeSymbol};
+  return {winConditions, board, swapPlayer, placeMark};
 })()
 
+
+
+const Player = (name, mark) => {
+  let win = 0;
+
+  const getName = () => name ;
+  const getMark = () => mark;
+  const getWin = () => win;
+  const addWin = () => ++win;
+
+  return { getName, getMark, getWin, addWin };
+}
+
+const player1 = Player("p1", "X");
+const player2 = Player("p2", "O");
 
 //run on start
 displayController.addListeners();

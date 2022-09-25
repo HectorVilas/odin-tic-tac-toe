@@ -137,13 +137,13 @@ body {
 @keyframes board-draw {
   0% {left: 150%; top: 150%; }
   10% { left: 33%; top: 0% }
-  20% { left: 33%; top: 100% }
+  20% { left: 33%; top: 100%; rotate: 1deg; }
   30% { left: 66%; top: 0% }
-  40% { left: 66%; top: 100% }
+  40% { left: 66%; top: 100%; rotate: -1deg; }
   50% { left: 0%; top: 33%; }
-  60% { left: 100%; top: 33%; }
+  60% { left: 100%; top: 33%; rotate: 1deg; }
   70% { left: 0%; top: 66%; }
-  80% { left: 100%; top: 66%; }
+  80% { left: 100%; top: 66%; rotate: -1deg; }
   100% { left: 150%; top: 150%; }
 }
 

@@ -1,3 +1,4 @@
+//user interface and listeners related
 const displayController = (() => {
   
   const lines = document.querySelectorAll(".line");
@@ -27,6 +28,22 @@ const displayController = (() => {
   };
 
   const newMatch = () => {
+    
+    sound.paper();
+    const sndDelay = 600;
+    setTimeout(() => {
+      sound.draw();
+      setTimeout(() => {
+        sound.draw();
+        setTimeout(() => {
+          sound.draw();
+          setTimeout(() => {
+            sound.draw();
+          }, sndDelay);
+        }, sndDelay);
+      }, sndDelay);
+    }, 750);
+
     pageTurn.classList.remove("animate")
     setTimeout(() => { pageTurn.classList.add("animate") }, 100);
   
@@ -50,6 +67,8 @@ const displayController = (() => {
   return { addListeners };
 })();
 
+
+//manages the game rules
 const gameFlow = (() => {
   let gameInProcess = false;
   let playerOneTurn = true;
@@ -102,7 +121,25 @@ const gameFlow = (() => {
 })()
 
 
+//manage anything audio related
+const sound = (() => {
+  const paperSnd = document.querySelectorAll(`[data-sound="paper"]`);
+  const drawSnd = document.querySelectorAll(`[data-sound="draw"]`);
+  
+  const paper = () => {
+    const randNum = Math.floor(Math.random()*paperSnd.length);
+    paperSnd[randNum].play();
+  }
+  const draw = () => {
+    const randNum = Math.floor(Math.random()*drawSnd.length);
+    drawSnd[randNum].play();
+  }
 
+  return { paper, draw };
+})();
+
+
+//player constructor, name, mark and score
 const Player = (name, mark) => {
   let win = 0;
 
@@ -114,8 +151,10 @@ const Player = (name, mark) => {
   return { getName, getMark, getWin, addWin };
 }
 
-const player1 = Player("p1", "X");
-const player2 = Player("p2", "O");
+
 
 //run on start
 displayController.addListeners();
+
+const player1 = Player("p1", "X");
+const player2 = Player("p2", "O");

@@ -18,7 +18,7 @@ const displayController = (() => {
   
   function clickCell() {
     const idx = this.dataset.idx;
-    if(gameFlow.board[idx] === 0){
+    if(gameFlow.board[idx] === 0 && gameFlow.matchStatus()){
       gameFlow.board[idx] = gameFlow.placeMark();
       this.innerText = gameFlow.placeMark();
       gameFlow.winConditions();
@@ -37,6 +37,7 @@ const displayController = (() => {
       //reset game board
       cells.forEach(c => c.innerText = "");
       gameFlow.board.fill(0);
+      gameFlow.matchStart();
 
       setTimeout(() => {
         [...lines,hand].forEach(line => {
@@ -50,6 +51,7 @@ const displayController = (() => {
 })();
 
 const gameFlow = (() => {
+  let gameInProcess = false;
   let playerOneTurn = true;
   let board = new Array(9).fill(0);
 
@@ -62,8 +64,10 @@ const gameFlow = (() => {
     } else {
       return player2.getMark();
     };
-    
   }
+  const matchStart = () => gameInProcess = true;
+  const matchEnd = () => gameInProcess = false;
+  const matchStatus = () => gameInProcess;
   function winConditions(){
     if(
       //horizontal
@@ -78,6 +82,7 @@ const gameFlow = (() => {
       board[0] === board[4] && board[4] === board[8] && board[0] !== 0 ||
       board[2] === board[4] && board[4] === board[6] && board[2] !== 0 
     ){
+      matchEnd();
       let winner;
       if(playerOneTurn){
         winner = player1.getName();
@@ -92,7 +97,8 @@ const gameFlow = (() => {
     }
   };
   
-  return {winConditions, board, swapPlayer, placeMark};
+  return {winConditions, board, swapPlayer, placeMark,
+    matchStart, matchEnd, matchStatus};
 })()
 
 

@@ -1,0 +1,56 @@
+TEXTURES:
+
+Image: https://www.freepik.com/free-photo/paper-textured-background_2971954.htm
+Author: https://www.freepik.com/author/rawpixel-com
+
+
+
+SOUNDS:
+
+Paper rustling and flipping:
+
+Sound: https://freesound.org/people/gynation/sounds/82377/
+Author: https://freesound.org/people/gynation/
+
+Sound: https://freesound.org/people/MattRuthSound/sounds/562038/
+Author: https://freesound.org/people/MattRuthSound/
+
+Sound: https://freesound.org/people/XTYL33/sounds/68223/
+Author: https://freesound.org/people/XTYL33/
+
+Sound: https://freesound.org/people/Juandamb/sounds/430622/
+Author: https://freesound.org/people/Juandamb/
+
+Sound: https://freesound.org/people/Korczu/sounds/648387/
+Author: https://freesound.org/people/Korczu/
+
+Sound: https://freesound.org/people/1bob/sounds/651514/
+Author: https://freesound.org/people/1bob/
+
+Sound: https://freesound.org/people/krnash/sounds/389809/
+Author: https://freesound.org/people/krnash/
+
+Sound: https://freesound.org/people/Huminaatio/sounds/159350/
+Author: https://freesound.org/people/Huminaatio/
+
+Sound: https://freesound.org/people/MeefBeef/sounds/333256/
+Author: https://freesound.org/people/MeefBeef/
+
+Sound: https://freesound.org/people/BenjaminNelan/sounds/353125/
+Author: https://freesound.org/people/BenjaminNelan/
+
+Sound: https://freesound.org/people/aldenroth2/sounds/272015/
+Author: https://freesound.org/people/aldenroth2/
+
+Sound: https://freesound.org/people/junkfood2121/sounds/248178/
+Author: https://freesound.org/people/junkfood2121/
+
+Sound: https://freesound.org/people/vmgraw/sounds/235617/
+Author: https://freesound.org/people/vmgraw/
+
+
+
+Pencil lines:
+
+Sound: https://freesound.org/people/kbt3/sounds/318557/
+Author: https://freesound.org/people/kbt3/

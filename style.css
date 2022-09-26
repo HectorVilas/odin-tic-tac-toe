@@ -56,7 +56,7 @@ body {
   cursor: pointer;
 }
 
-.line {
+.line, .Strikethrough {
   position: absolute;
   background: url(./media/images/pencil-stroke.png) no-repeat;
   background-size: 100% 100%;
@@ -118,6 +118,69 @@ body {
   20%, to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 }
 
+.Strikethrough.h1 {
+  top: 15%;
+  rotate: 1deg;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
+.Strikethrough.h2 {
+  top: 50%;
+  rotate: -1.5deg;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.h3 {
+  bottom: 15%;
+  rotate: .5deg;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.v1 {
+  rotate: 90.5deg;
+  top: 49%;
+  right: 32%;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.v2 {
+  rotate: 90deg;
+  top: 49%;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.v3 {
+  rotate: 91deg;
+  top: 49%;
+  left: 32%;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.d1 { /* top left to bottom right*/
+  rotate: 46deg;
+  top: 50%;
+  left: -10%;
+  width: 125%;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.d2 { /* bottom left to top right*/
+  rotate: -44deg;
+  top: 50%;
+  right: -10%;
+  width: 125%;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.Strikethrough.h1.animate,
+.Strikethrough.h2.animate,
+.Strikethrough.h3.animate,
+.Strikethrough.v1.animate,
+.Strikethrough.v2.animate,
+.Strikethrough.v3.animate,
+.Strikethrough.d1.animate,
+.Strikethrough.d2.animate {
+  transition: 250ms 250ms;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+/* .Strikethrough.animate {
+  transition: 250ms;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+} */
+
 .hand {
   position: absolute;
   left: 150%;
@@ -140,6 +203,70 @@ body {
   60% { left: 100%; top: 33%; rotate: 1deg; }
   70% { left: 0%; top: 66%; }
   80% { left: 100%; top: 66%; rotate: -1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.strikeh1{
+  animation: strikeh1 1s;
+} @keyframes strikeh1 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 100%; top: 14% }
+  50% { left: 0%; top: 14%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.strikeh2{
+  animation: strikeh2 1s;
+} @keyframes strikeh2 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 100%; top: 50% }
+  50% { left: 0%; top: 50%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.strikeh3{
+  animation: strikeh3 1s;
+} @keyframes strikeh3 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 100%; top: 82% }
+  50% { left: 0%; top: 82%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.strikev1{
+  animation: strikev1 1s;
+} @keyframes strikev1 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 14%; top: 100% }
+  50% { left: 14%; top: 0%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.strikev2{
+  animation: strikev2 1s;
+} @keyframes strikev2 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 50%; top: 100% }
+  50% { left: 50%; top: 0%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.strikev3{
+  animation: strikev3 1s;
+} @keyframes strikev3 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 80%; top: 100% }
+  50% { left: 80%; top: 0%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.striked1{
+  animation: striked1 1s;
+} @keyframes striked1 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 95%; top: 95% }
+  50% { left: 5%; top: 5%; rotate: 1deg; }
+  100% { left: 150%; top: 150%; }
+}
+.hand.striked2{
+  animation: striked2 1s;
+} @keyframes striked2 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 95%; top: 5% }
+  50% { left: 5%; top: 95%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
 

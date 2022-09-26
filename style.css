@@ -67,7 +67,6 @@ body {
 .line.l1 {
   left: 0;
   top: 33%;
-  rotate: 1deg;
   clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
 }
 .line.l1.animate {
@@ -82,7 +81,6 @@ body {
 .line.l2 {
   left: 0;
   bottom: 31%;
-  rotate: 180deg;
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .line.l2.animate {
@@ -94,7 +92,6 @@ body {
   80%, to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 }
 .line.l3 {
-  rotate: 90.5deg;
   top: 49%;
   left: 17%;
   clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
@@ -110,7 +107,6 @@ body {
 .line.l4 {
   top: 50%;
   right: 17%;
-  rotate: 270deg;
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .line.l4.animate{

@@ -55,6 +55,12 @@ const displayController = (() => {
       cells.forEach(c => c.innerText = "");
       gameFlow.board.fill(0);
       gameFlow.matchStart();
+      
+      //random line rotation
+      lines[0].style.rotate = `${Math.random()*(3-(-3))+(-3)}deg`; //0
+      lines[1].style.rotate = `${Math.random()*(183-177)+177}deg`; //180
+      lines[2].style.rotate = `${Math.random()*(93-87)+87}deg`; //90
+      lines[3].style.rotate = `${Math.random()*(273-267)+267}deg`; //270
 
       setTimeout(() => {
         [...lines,hand].forEach(line => {

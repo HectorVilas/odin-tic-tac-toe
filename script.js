@@ -3,6 +3,7 @@ const displayController = (() => {
   
   const lines = document.querySelectorAll(".line");
   const cells = document.querySelectorAll(".cell");
+  const Strikethrough = document.querySelectorAll(".Strikethrough");
   //animation related
   const hand = document.querySelector(".hand");
   const pageTurn = document.querySelector(".page-turn");
@@ -11,6 +12,9 @@ const displayController = (() => {
   
   const addListeners = () => {
     btnStartGame.addEventListener("click", newMatch);
+    hand.addEventListener("animationend", () => {
+      hand.classList.remove("animate");
+    });
     
     cells.forEach( cell => {
       cell.addEventListener("click", clickCell);
@@ -48,9 +52,11 @@ const displayController = (() => {
     setTimeout(() => { pageTurn.classList.add("animate") }, 100);
   
     setTimeout(() => {
-      [...lines,hand].forEach(line => {
+      [...lines,hand,...Strikethrough].forEach(line => {
         line.classList.remove("animate")
       });
+      hand.classList.remove("strikeh1","strikeh2","strikeh3",
+        "strikev1","strikev2","strikev3","striked1","striked2");
       //reset game board
       cells.forEach(c => c.innerText = "");
       gameFlow.board.fill(0);
@@ -70,7 +76,57 @@ const displayController = (() => {
     }, 300);
   };
 
-  return { addListeners };
+  const strikeLine = (l) => {
+    setTimeout(() => {
+      sound.draw();
+    }, 250); 
+    switch (l) {
+      case "h1":
+        hand.classList.add("strikeh1");
+        Strikethrough[0].classList.add("animate");
+        break;
+      case "h2":
+        hand.classList.add("strikeh2");
+        Strikethrough[1].classList.add("animate");
+        break;
+      case "h3":
+        hand.classList.add("strikeh3");
+        Strikethrough[2].classList.add("animate");
+        break;
+      case "v1":
+        hand.classList.add("strikev1");
+        Strikethrough[3].classList.add("animate");
+        break;
+      case "v2":
+        hand.classList.add("strikev2");
+        Strikethrough[4].classList.add("animate");
+        break;
+      case "v3":
+        hand.classList.add("strikev3");
+        Strikethrough[5].classList.add("animate");
+        break;
+      case "d1":
+        hand.classList.add("striked1");
+        Strikethrough[6].classList.add("animate");
+        break;
+      case "d2":
+        hand.classList.add("striked2");
+        Strikethrough[7].classList.add("animate");
+        break;
+        default: //for testing
+        const list = ["h1","h2","h3","v1","v2","v3","d1","d2"];
+        let idx = 0;
+        for(i = 0; i < 8; i++){
+          setTimeout(() => {
+            hand.classList.add(`strike${list[idx]}`);
+            Strikethrough[idx].classList.add("animate");
+            idx++;
+          }, 1000*(i+1));
+        }
+        break;
+    }
+  }
+  return { addListeners, strikeLine };
 })();
 
 
@@ -90,35 +146,38 @@ const gameFlow = (() => {
       return player2.getMark();
     };
   }
-  const matchStart = () => gameInProcess = true;
+  const matchStart = () => {
+    setTimeout(() => {
+      gameInProcess = true
+    }, 3000);
+  };
   const matchEnd = () => gameInProcess = false;
   const matchStatus = () => gameInProcess;
   function winConditions(){
-    if(
-      //horizontal
-      board[0] === board[1] && board[1] === board[2] && board[0] !== 0 ||
-      board[3] === board[4] && board[4] === board[5] && board[3] !== 0 ||
-      board[6] === board[7] && board[7] === board[8] && board[6] !== 0 ||
-      //vertical
-      board[0] === board[3] && board[3] === board[6] && board[0] !== 0 ||
-      board[1] === board[4] && board[4] === board[7] && board[1] !== 0 ||
-      board[2] === board[5] && board[5] === board[8] && board[2] !== 0 ||
-      //diagonal
-      board[0] === board[4] && board[4] === board[8] && board[0] !== 0 ||
-      board[2] === board[4] && board[4] === board[6] && board[2] !== 0 
-    ){
+    if(board[0] === board[1] && board[1] === board[2] && board[0] !== 0){
       matchEnd();
-      let winner;
-      if(playerOneTurn){
-        winner = player1.getName();
-        player1.addWin();
-      } else {
-        winner = player2.getName();
-        player2.addWin();
-      };
-      console.log(`${winner} wins! Flawless victory.`);
-      console.log(`${player1.getName()} score: ${player1.getWin()}`);
-      console.log(`${player2.getName()} score: ${player2.getWin()}`);
+      displayController.strikeLine("h1");
+    } else if(board[3] === board[4] && board[4] === board[5] && board[3] !== 0){
+      matchEnd();
+      displayController.strikeLine("h2");
+    } else if(board[6] === board[7] && board[7] === board[8] && board[6] !== 0){
+      matchEnd();
+      displayController.strikeLine("h3");
+    } else if(board[0] === board[3] && board[3] === board[6] && board[0] !== 0){
+      matchEnd();
+      displayController.strikeLine("v1");
+    } else if(board[1] === board[4] && board[4] === board[7] && board[1] !== 0){
+      matchEnd();
+      displayController.strikeLine("v2");
+    } else if(board[2] === board[5] && board[5] === board[8] && board[2] !== 0){
+      matchEnd();
+      displayController.strikeLine("v3");
+    } else if(board[0] === board[4] && board[4] === board[8] && board[0] !== 0){
+      matchEnd();
+      displayController.strikeLine("d1");
+    } else if(board[2] === board[4] && board[4] === board[6] && board[2] !== 0){
+      matchEnd();
+      displayController.strikeLine("d2");
     }
   };
   
@@ -164,3 +223,11 @@ displayController.addListeners();
 
 const player1 = Player("p1", "X");
 const player2 = Player("p2", "O");
+
+
+
+
+// const hand = document.querySelector(".hand");
+// hand.addEventListener("animationend", (e) =>{
+//   console.log(e);
+// })

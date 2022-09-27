@@ -16,7 +16,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-
+  user-select: none;
 }
 html {
   height: 100vh;
@@ -51,7 +51,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 3em;
-} .cell:hover {
+} .cell.can-play:hover {
   background-color: rgba(231, 236, 185, 0.5);
   cursor: pointer;
 }

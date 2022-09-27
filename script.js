@@ -35,10 +35,22 @@ const displayController = (() => {
         }, 500);
       };
     };
+    
+  };
+
+  function cellHover(bool){
+    if(bool){
+      setTimeout(() => {
+        cells.forEach(c => c.classList.add("can-play"))
+    
+      }, 2750);
+    } else {
+      cells.forEach(c => c.classList.remove("can-play"));
+    }
   };
 
   const newMatch = () => {
-
+    cellHover(true);
     btnStartGame.classList.add("hidden");
     gameFlow.resetTurns();
     
@@ -135,7 +147,7 @@ const displayController = (() => {
         break;
     }
   }
-  return { addListeners, strikeLine, newMatch };
+  return { addListeners, strikeLine, newMatch, cellHover };
 })();
 
 
@@ -185,6 +197,7 @@ const gameFlow = (() => {
 
   function winGame(pos){
     matchEnd();
+    displayController.cellHover(false);
     displayController.strikeLine(pos);
     playerOneTurn ? player1.addScore() : player2.addScore();
     setTimeout(() => {

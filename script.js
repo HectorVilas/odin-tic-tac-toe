@@ -43,7 +43,7 @@ const displayController = (() => {
       setTimeout(() => {
         cells.forEach(c => c.classList.add("can-play"))
     
-      }, 2750);
+      }, 3000);
     } else {
       cells.forEach(c => c.classList.remove("can-play"));
     }
@@ -98,54 +98,22 @@ const displayController = (() => {
   };
 
   const strikeLine = (l) => {
-    setTimeout(() => {
-      sound.draw();
-    }, 250); 
-    switch (l) {
-      case "h1":
-        hand.classList.add("strikeh1");
-        Strikethrough[0].classList.add("animate");
-        break;
-      case "h2":
-        hand.classList.add("strikeh2");
-        Strikethrough[1].classList.add("animate");
-        break;
-      case "h3":
-        hand.classList.add("strikeh3");
-        Strikethrough[2].classList.add("animate");
-        break;
-      case "v1":
-        hand.classList.add("strikev1");
-        Strikethrough[3].classList.add("animate");
-        break;
-      case "v2":
-        hand.classList.add("strikev2");
-        Strikethrough[4].classList.add("animate");
-        break;
-      case "v3":
-        hand.classList.add("strikev3");
-        Strikethrough[5].classList.add("animate");
-        break;
-      case "d1":
-        hand.classList.add("striked1");
-        Strikethrough[6].classList.add("animate");
-        break;
-      case "d2":
-        hand.classList.add("striked2");
-        Strikethrough[7].classList.add("animate");
-        break;
-        default: //for testing
-        const list = ["h1","h2","h3","v1","v2","v3","d1","d2"];
-        let idx = 0;
-        for(i = 0; i < 8; i++){
-          setTimeout(() => {
-            hand.classList.add(`strike${list[idx]}`);
-            Strikethrough[idx].classList.add("animate");
-            idx++;
-          }, 1000*(i+1));
-        }
-        break;
+    const line = (l, i) => {
+      hand.classList.add(`strike${l}`);
+      Strikethrough[i].classList.add("animate");
+      setTimeout(() => {
+        sound.draw();
+      }, 250); 
     }
+    l === "h1" ? line(l, 0) :
+    l === "h2" ? line(l, 1) :
+    l === "h3" ? line(l, 2) :
+    l === "v1" ? line(l, 3) :
+    l === "v2" ? line(l, 4) :
+    l === "v3" ? line(l, 5) :
+    l === "d1" ? line(l, 6) :
+    l === "d2" ? line(l, 7) :
+    console.log("Strikethrough invalid value");
   }
   return { addListeners, strikeLine, newMatch, cellHover };
 })();
@@ -208,7 +176,7 @@ const gameFlow = (() => {
 
   const turnsMinusOne = () => turnsRemaining--;
   const getTurns = () => turnsRemaining;
-  const resetTurns = () => turnsRemaining = 9;
+  const resetTurns = () => {turnsRemaining = 9; displayController.cellHover(false)};
 
   return {winConditions, board, swapPlayer, placeMark,
     matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns, resetTurns};

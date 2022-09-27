@@ -54,7 +54,7 @@ The game:
 - ✔️marks can only be placed at empty spaces
 - ✔️each play, the win condition checks the board
 - - ✔️3 marks of the same player must form an horizontal, vertical or diagonal line
-- - ❌if there's a line, the game ends, the player that made the line wins
+- - ✔️if there's a line, the game ends, the player that made the line wins
 - - ✔️when another game starts, first play is for the player that lost
 - - ❓on a tie, the starting player is chosen at random
 
@@ -194,3 +194,9 @@ Here's a little demo of all the possible Strikethrough lines being drawn.
 
 ![](READMEmd/progress06.gif)
 
+## update 7
+Today I've been working in a little automation: there's no need to click on "play!" for each play anymore. Once somebody wins or in case of a tie, the next match will start automatically, with a little delay to appreciate the results of the match. Also the score is back in action, the winner will receive a point for each win.
+
+Another good change was moving a long `switch-case` to a ternary operator and creating a simple function to prevent repetition.
+
+And the last change was removing the mouse hover effect from the spaces if somebody wins or while the board is being drawn.

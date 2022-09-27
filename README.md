@@ -9,14 +9,14 @@ I've been reading and watching videos about patterns and this kind of functions,
 
 ## Requisites by Odin:
 
-- ❌store the gameboard as an array inside of a Gameboard object
-- ❌players are also going to be stored in objects
-- ❌an object to control the flow of the game itself
-- ❌have as little global code as possible
-- - ❌tuck everything away inside of a module or factory
-- ❌write a JS function that will render the contents of the gameboard array to the webpage
-- ❌functions to allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker
-- ❌build the logic that checks for when the game is over
+- ✔️store the gameboard as an array inside of a Gameboard object
+- ✔️players are also going to be stored in objects
+- ✔️an object to control the flow of the game itself
+- ✔️have as little global code as possible
+- - ✔️tuck everything away inside of a module or factory
+- ✔️write a JS function that will render the contents of the gameboard array to the webpage
+- ✔️functions to allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker
+- ✔️build the logic that checks for when the game is over
 - ❌allow players to put in their names
 - ❌include a button to start/restart the game
 - ❌add a display element that congratulates the winning player
@@ -39,23 +39,23 @@ The page:
 
 The code:
 
-- ❌function factory for players
+- ✔️function factory for players
 - - ❌store name
-- - ❌store cross or circle for play area
-- ❌module pattern for board
+- - ✔️store cross or circle for play area
+- ✔️module pattern for board
 - ❓module pattern for rules (or in board too)
 
 The game:
 - ❌start asking for players names (player1 and player2 at default)
 - ✔️draw the board, empty
 - ❌at random one of the player starts
-- ❌player1 places circles and player2 crosses
-- ❌each time a player places a mark, it's the other player's turn
-- ❌marks can only be placed at empty spaces
-- ❌each play, the win condition checks the board
-- - ❌3 marks of the same player must form an horizontal, vertical or diagonal line
+- ✔️player1 places ~~circles~~ crosses and player2 ~~crosses~~ circles
+- ✔️each time a player places a mark, it's the other player's turn
+- ✔️marks can only be placed at empty spaces
+- ✔️each play, the win condition checks the board
+- - ✔️3 marks of the same player must form an horizontal, vertical or diagonal line
 - - ❌if there's a line, the game ends, the player that made the line wins
-- - ❓when another game starts, first play is for the player that lost
+- - ✔️when another game starts, first play is for the player that lost
 - - ❓on a tie, the starting player is chosen at random
 
 
@@ -184,3 +184,13 @@ Author: https://freesound.org/people/kbt3/
 
 ### thoughts:
 This practice is almost done. The game can be played, but still needs to be able to add player names, show scores and messages and, if I find a way to make one, a simple AI to play against. The rest is pure animations and aesthetics.
+
+## update 6
+As the game is already working and only needs a few additions to be considered finished, I kept working in the visual part of the project. Now the 4 drawn lines for each match have a small random rotation, to make it look hand drawn, with this little imperfection.
+
+After this I worked with the Strikethrough lines. Now each time the game detects a win condition, it will draw a line over the winning position. I just separated the huge win conditions from the `if` to multiple `if`s, so I know which strikethrough animation must be played. Each strike line is already on screen, but hidden with `clip-path`. When it gets animated, it just modifies the `clip-path` with a transition in sync with the hand.
+
+Here's a little demo of all the possible Strikethrough lines being drawn.
+
+![](READMEmd/progress06.gif)
+

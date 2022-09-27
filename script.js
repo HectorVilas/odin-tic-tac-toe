@@ -40,6 +40,7 @@ const displayController = (() => {
   const newMatch = () => {
 
     btnStartGame.classList.add("hidden");
+    gameFlow.resetTurns();
     
     sound.paper();
     const sndDelay = 600;
@@ -189,19 +190,15 @@ const gameFlow = (() => {
     setTimeout(() => {
       displayController.newMatch();
     }, 1000);
-    turnsRemaining = 9;
+    resetTurns();
   };
 
-  function turnsMinusOne(){
-    turnsRemaining--;
-  }
+  const turnsMinusOne = () => turnsRemaining--;
+  const getTurns = () => turnsRemaining;
+  const resetTurns = () => turnsRemaining = 9;
 
-  function getTurns(){
-    return turnsRemaining;
-  }
-  
   return {winConditions, board, swapPlayer, placeMark,
-    matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns};
+    matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns, resetTurns};
 })()
 
 

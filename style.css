@@ -165,21 +165,10 @@ body {
   width: 125%;
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
-.Strikethrough.h1.animate,
-.Strikethrough.h2.animate,
-.Strikethrough.h3.animate,
-.Strikethrough.v1.animate,
-.Strikethrough.v2.animate,
-.Strikethrough.v3.animate,
-.Strikethrough.d1.animate,
-.Strikethrough.d2.animate {
+.Strikethrough.animate {
   transition: 250ms 250ms;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
-/* .Strikethrough.animate {
-  transition: 250ms;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-} */
 
 .hand {
   position: absolute;

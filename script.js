@@ -26,12 +26,20 @@ const displayController = (() => {
     if(gameFlow.board[idx] === 0 && gameFlow.matchStatus()){
       gameFlow.board[idx] = gameFlow.placeMark();
       this.innerText = gameFlow.placeMark();
+      gameFlow.turnsMinusOne();
       gameFlow.winConditions();
       gameFlow.swapPlayer();
+      if(gameFlow.getTurns() === 0){
+        setTimeout(() => {
+          newMatch();
+        }, 500);
+      };
     };
   };
 
   const newMatch = () => {
+
+    btnStartGame.classList.add("hidden");
     
     sound.paper();
     const sndDelay = 600;
@@ -126,7 +134,7 @@ const displayController = (() => {
         break;
     }
   }
-  return { addListeners, strikeLine };
+  return { addListeners, strikeLine, newMatch };
 })();
 
 
@@ -134,6 +142,7 @@ const displayController = (() => {
 const gameFlow = (() => {
   let gameInProcess = false;
   let playerOneTurn = true;
+  let turnsRemaining = 9;
   let board = new Array(9).fill(0);
 
   function swapPlayer(){
@@ -155,34 +164,44 @@ const gameFlow = (() => {
   const matchStatus = () => gameInProcess;
   function winConditions(){
     if(board[0] === board[1] && board[1] === board[2] && board[0] !== 0){
-      matchEnd();
-      displayController.strikeLine("h1");
+      winGame("h1");
     } else if(board[3] === board[4] && board[4] === board[5] && board[3] !== 0){
-      matchEnd();
-      displayController.strikeLine("h2");
+      winGame("h2");
     } else if(board[6] === board[7] && board[7] === board[8] && board[6] !== 0){
-      matchEnd();
-      displayController.strikeLine("h3");
+      winGame("h3");
     } else if(board[0] === board[3] && board[3] === board[6] && board[0] !== 0){
-      matchEnd();
-      displayController.strikeLine("v1");
+      winGame("v1");
     } else if(board[1] === board[4] && board[4] === board[7] && board[1] !== 0){
-      matchEnd();
-      displayController.strikeLine("v2");
+      winGame("v2");
     } else if(board[2] === board[5] && board[5] === board[8] && board[2] !== 0){
-      matchEnd();
-      displayController.strikeLine("v3");
+      winGame("v3");
     } else if(board[0] === board[4] && board[4] === board[8] && board[0] !== 0){
-      matchEnd();
-      displayController.strikeLine("d1");
+      winGame("d1");
     } else if(board[2] === board[4] && board[4] === board[6] && board[2] !== 0){
-      matchEnd();
-      displayController.strikeLine("d2");
+      winGame("d2");
     }
   };
+
+  function winGame(pos){
+    matchEnd();
+    displayController.strikeLine(pos);
+    playerOneTurn ? player1.addScore() : player2.addScore();
+    setTimeout(() => {
+      displayController.newMatch();
+    }, 1000);
+    turnsRemaining = 9;
+  };
+
+  function turnsMinusOne(){
+    turnsRemaining--;
+  }
+
+  function getTurns(){
+    return turnsRemaining;
+  }
   
   return {winConditions, board, swapPlayer, placeMark,
-    matchStart, matchEnd, matchStatus};
+    matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns};
 })()
 
 
@@ -206,14 +225,14 @@ const sound = (() => {
 
 //player constructor, name, mark and score
 const Player = (name, mark) => {
-  let win = 0;
+  let score = 0;
 
   const getName = () => name ;
   const getMark = () => mark;
-  const getWin = () => win;
-  const addWin = () => ++win;
+  const getScore = () => score;
+  const addScore = () => ++score;
 
-  return { getName, getMark, getWin, addWin };
+  return { getName, getMark, getScore, addScore };
 }
 
 
@@ -223,11 +242,3 @@ displayController.addListeners();
 
 const player1 = Player("p1", "X");
 const player2 = Player("p2", "O");
-
-
-
-
-// const hand = document.querySelector(".hand");
-// hand.addEventListener("animationend", (e) =>{
-//   console.log(e);
-// })

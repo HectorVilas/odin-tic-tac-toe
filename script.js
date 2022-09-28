@@ -4,6 +4,8 @@ const displayController = (() => {
   const lines = document.querySelectorAll(".line");
   const cells = document.querySelectorAll(".cell");
   const Strikethrough = document.querySelectorAll(".Strikethrough");
+  const symbolX1 = document.querySelectorAll(".x1");
+  const symbolX2 = document.querySelectorAll(".x2");
   //animation related
   const hand = document.querySelector(".hand");
   const pageTurn = document.querySelector(".page-turn");
@@ -14,6 +16,10 @@ const displayController = (() => {
     btnStartGame.addEventListener("click", newMatch);
     hand.addEventListener("animationend", () => {
       hand.classList.remove("animate");
+      hand.classList.remove("strikeh1","strikeh2","strikeh3",
+        "strikev1","strikev2","strikev3","striked1","striked2");
+      hand.classList.remove("x0","x1","x2",
+        "x3","x4","x5","x6","x7", "x8");
     });
     
     cells.forEach( cell => {
@@ -24,8 +30,10 @@ const displayController = (() => {
   function clickCell() {
     const idx = this.dataset.idx;
     if(gameFlow.board[idx] === 0 && gameFlow.matchStatus()){
+      gameFlow.playDelay();
       gameFlow.board[idx] = gameFlow.placeMark();
-      this.innerText = gameFlow.placeMark();
+      // this.innerText = gameFlow.placeMark();
+      drawSymbol(idx);
       gameFlow.turnsMinusOne();
       gameFlow.winConditions();
       gameFlow.swapPlayer();
@@ -79,7 +87,8 @@ const displayController = (() => {
       hand.classList.remove("strikeh1","strikeh2","strikeh3",
         "strikev1","strikev2","strikev3","striked1","striked2");
       //reset game board
-      cells.forEach(c => c.innerText = "");
+      symbolX1.forEach(s => s.classList.remove("animate"));
+      symbolX2.forEach(s => s.classList.remove("animate"));
       gameFlow.board.fill(0);
       gameFlow.matchStart();
       
@@ -115,7 +124,17 @@ const displayController = (() => {
     l === "d2" ? line(l, 7) :
     console.log("Strikethrough invalid value");
   }
-  return { addListeners, strikeLine, newMatch, cellHover };
+
+  const drawSymbol = (pos) => {
+    if(gameFlow.getCurrentPlayer()){ // draws X
+      hand.classList.add(`x${pos}`);
+      symbolX1[pos].classList.add("animate");
+      symbolX2[pos].classList.add("animate");
+    } else {
+      console.log("must draw 'O'");
+    };
+  };
+  return { addListeners, strikeLine, newMatch, cellHover, drawSymbol };
 })();
 
 
@@ -164,22 +183,32 @@ const gameFlow = (() => {
   };
 
   function winGame(pos){
-    matchEnd();
-    displayController.cellHover(false);
-    displayController.strikeLine(pos);
-    playerOneTurn ? player1.addScore() : player2.addScore();
     setTimeout(() => {
-      displayController.newMatch();
-    }, 1000);
-    resetTurns();
+      matchEnd();
+      displayController.cellHover(false);
+      displayController.strikeLine(pos);
+      playerOneTurn ? player1.addScore() : player2.addScore();
+      setTimeout(() => {
+        displayController.newMatch();
+      }, 1000);
+      resetTurns();
+    }, 1200);
   };
 
   const turnsMinusOne = () => turnsRemaining--;
   const getTurns = () => turnsRemaining;
   const resetTurns = () => {turnsRemaining = 9; displayController.cellHover(false)};
+  const getCurrentPlayer = () => playerOneTurn;
+  const playDelay = () => {
+    gameInProcess = false;
+    setTimeout(() => {
+      gameInProcess = true;
+    }, 1000);
+  };
 
-  return {winConditions, board, swapPlayer, placeMark,
-    matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns, resetTurns};
+  return {winConditions, board, swapPlayer, placeMark, getCurrentPlayer,
+    matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns, resetTurns,
+    playDelay};
 })()
 
 
@@ -220,3 +249,16 @@ displayController.addListeners();
 
 const player1 = Player("p1", "X");
 const player2 = Player("p2", "O");
+
+
+
+//for testing
+
+//get left and top percentages for board on click position
+const board = document.querySelector(".board");
+board.addEventListener("click", (e) => {
+  console.log(
+    Math.floor((e.clientX - board.offsetLeft) * 100 / board.clientWidth),
+    Math.floor((e.clientY-board.offsetTop) * 100 / board.clientHeight)
+  );
+})

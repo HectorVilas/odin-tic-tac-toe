@@ -200,3 +200,47 @@ Today I've been working in a little automation: there's no need to click on "pla
 Another good change was moving a long `switch-case` to a ternary operator and creating a simple function to prevent repetition.
 
 And the last change was removing the mouse hover effect from the spaces if somebody wins or while the board is being drawn.
+
+## update 8
+Today I've been working in the symbols. I drew a short pencil line on Gimp to use two of them in the "X" drawing, I also drew a circle with pencil looking lines. I positioned the straight lines on pairs inside of each cell and hid them with `clip-path`. Each time the player one places a symbol, an animation corresponding of it's cell will play, moving the hand and making it draw an "X" in sync with the appearing lines animation.
+
+![](READMEmd/progress07.gif)
+
+This is a snippet from `CSS`, this is how I make the hand draw the center-right cross:
+```CSS
+.hand.x5{
+  animation: x5 1s;
+} @keyframes x5 {
+  0% {left: 150%; top: 150%; }
+  30% { left: 92%; top: 39%; }
+  40% { left: 72%; top: 59%; }
+  50% { left: 73%; top: 39%; }
+  60% { left: 92%; top: 59%; }
+  100% { left: 150%; top: 150%; }
+}
+```
+Getting those left and top positions was a manual work, trial and error, so in the second or third position I questioned myself why I'm not automating this, so I came with the next idea:
+
+```javascript
+//get left and top percentages for board on click position
+const board = document.querySelector(".board");
+board.addEventListener("click", (e) => {
+  console.log(
+    Math.floor((e.clientX - board.offsetLeft) * 100 / board.clientWidth),
+    Math.floor((e.clientY-board.offsetTop) * 100 / board.clientHeight)
+  );
+})
+```
+
+With this little `JavaScript` function each time I click on the board I get the left and top position in percentage. With this huge help I got the exact position for the pencil tip to place in the `@keyframe`.
+
+After this I made a few changes in the code:
+
+I replaced a lot of `.classList.remove( //...` with a simple `.className = "hand"`, now each time the hand receives a class to play some animation and finish animating, it will remove everything except for `.hand`.
+
+Then I had to adjust some delay values to prevent player clicking on the board after winning, causing an exploit giving another point to the winner.
+
+Another little change was adding a `gameOver` boolean, so delays won't re-enable the clicking action after a player wins.
+
+### thoughts:
+Today I've been working on this project for hours, mostly finding a way to do some stuff on Gimp and InkScape, and experimenting with the code. Tomorrow I'll try to make the hand draw the circles. My idea was the same as the "X" symbol drawing, but using `clip-path` differently, to reveal the circle from the center, and move the `transform-origin` for the hand away from it's 0 0 position, so it can rotate from the center of the circle, while the hand image rotates the same way but with negative values, giving an impression of it drawing a circle.

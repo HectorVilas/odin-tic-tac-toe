@@ -15,11 +15,7 @@ const displayController = (() => {
   const addListeners = () => {
     btnStartGame.addEventListener("click", newMatch);
     hand.addEventListener("animationend", () => {
-      hand.classList.remove("animate");
-      hand.classList.remove("strikeh1","strikeh2","strikeh3",
-        "strikev1","strikev2","strikev3","striked1","striked2");
-      hand.classList.remove("x0","x1","x2",
-        "x3","x4","x5","x6","x7", "x8");
+      hand.className = "hand"; //remove all anim classes except this one
     });
     
     cells.forEach( cell => {
@@ -81,11 +77,9 @@ const displayController = (() => {
     setTimeout(() => { pageTurn.classList.add("animate") }, 100);
   
     setTimeout(() => {
-      [...lines,hand,...Strikethrough].forEach(line => {
+      [...lines,...Strikethrough].forEach(line => {
         line.classList.remove("animate")
       });
-      hand.classList.remove("strikeh1","strikeh2","strikeh3",
-        "strikev1","strikev2","strikev3","striked1","striked2");
       //reset game board
       symbolX1.forEach(s => s.classList.remove("animate"));
       symbolX2.forEach(s => s.classList.remove("animate"));
@@ -183,8 +177,9 @@ const gameFlow = (() => {
   };
 
   function winGame(pos){
+    matchEnd();
+    board.fill(0); //prevents adding extra points while animations plays
     setTimeout(() => {
-      matchEnd();
       displayController.cellHover(false);
       displayController.strikeLine(pos);
       playerOneTurn ? player1.addScore() : player2.addScore();

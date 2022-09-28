@@ -137,6 +137,7 @@ const gameFlow = (() => {
   let gameInProcess = false;
   let playerOneTurn = true;
   let turnsRemaining = 9;
+  let gameOver = false;
   let board = new Array(9).fill(0);
 
   function swapPlayer(){
@@ -151,10 +152,14 @@ const gameFlow = (() => {
   }
   const matchStart = () => {
     setTimeout(() => {
-      gameInProcess = true
+      gameInProcess = true;
+      gameOver = false;
     }, 3000);
   };
-  const matchEnd = () => gameInProcess = false;
+  const matchEnd = () => {
+    gameOver = true;
+    gameInProcess = false
+  };
   const matchStatus = () => gameInProcess;
   function winConditions(){
     if(board[0] === board[1] && board[1] === board[2] && board[0] !== 0){
@@ -196,8 +201,12 @@ const gameFlow = (() => {
   const getCurrentPlayer = () => playerOneTurn;
   const playDelay = () => {
     gameInProcess = false;
+    displayController.cellHover(false);
     setTimeout(() => {
-      gameInProcess = true;
+      if(!gameOver) {
+        gameInProcess = true;
+      }
+      displayController.cellHover(true);
     }, 1000);
   };
 

@@ -6,16 +6,21 @@ const displayController = (() => {
   const Strikethrough = document.querySelectorAll(".Strikethrough");
   const symbolX1 = document.querySelectorAll(".x1");
   const symbolX2 = document.querySelectorAll(".x2");
+  const circles = document.querySelectorAll(".circle");
   //animation related
-  const hand = document.querySelector(".hand");
+  const handP1 = document.querySelector(".hand.player1");
+  const handP2 = document.querySelector(".hand.player2");
   const pageTurn = document.querySelector(".page-turn");
   //buttons
   const btnStartGame = document.querySelector(".btn-start-game");
   
   const addListeners = () => {
     btnStartGame.addEventListener("click", newMatch);
-    hand.addEventListener("animationend", () => {
-      hand.className = "hand"; //remove all anim classes except this one
+    handP1.addEventListener("animationend", () => {
+      handP1.className = "hand player1"; //remove all anim classes except this one
+    });
+    handP2.addEventListener("animationend", () => {
+      handP2.className = "hand player2"; //remove all anim classes except this one
     });
     
     cells.forEach( cell => {
@@ -92,7 +97,7 @@ const displayController = (() => {
       lines[3].style.rotate = `${Math.random()*(273-267)+267}deg`; //270
 
       setTimeout(() => {
-        [...lines,hand].forEach(line => {
+        [...lines,handP1].forEach(line => {
           line.classList.add("animate");
         });
       }, 100);
@@ -101,7 +106,7 @@ const displayController = (() => {
 
   const strikeLine = (l) => {
     const line = (l, i) => {
-      hand.classList.add(`strike${l}`);
+      handP1.classList.add(`strike${l}`);
       Strikethrough[i].classList.add("animate");
       setTimeout(() => {
         sound.draw();
@@ -120,11 +125,12 @@ const displayController = (() => {
 
   const drawSymbol = (pos) => {
     if(gameFlow.getCurrentPlayer()){ // draws X
-      hand.classList.add(`x${pos}`);
+      handP1.classList.add(`x${pos}`);
       symbolX1[pos].classList.add("animate");
       symbolX2[pos].classList.add("animate");
-    } else {
-      console.log("must draw 'O'");
+    } else { // draws O
+      //hand.classList.add(`o${pos}`);
+      circles[pos].classList.add("animate");
     };
   };
   return { addListeners, strikeLine, newMatch, cellHover, drawSymbol };

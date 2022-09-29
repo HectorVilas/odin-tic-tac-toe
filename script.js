@@ -129,7 +129,7 @@ const displayController = (() => {
       symbolX1[pos].classList.add("animate");
       symbolX2[pos].classList.add("animate");
     } else { // draws O
-      //hand.classList.add(`o${pos}`);
+      handP2.classList.add(`o${pos}`);
       circles[pos].classList.add("animate");
     };
   };

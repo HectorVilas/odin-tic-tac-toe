@@ -196,25 +196,26 @@ body {
   width: 100%;
   height: 100%;
   clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  rotate: -45deg;
 }
 .circle.animate {
-  animation: draw-circle 1s linear;
+  animation: draw-circle 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 @keyframes draw-circle {
-	0%, 15% {
+	0%, 30% {
 		clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
 	}
-	30% {
+	40% {
 		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 100% 100%, 100% 100%, 100% 100%);
 	}
-	45% {
+	50% {
 		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 100%, 0 100%);
 	}
 	60% {
 		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
 	}
-	75%, 100% {
+	70%, 100% {
 		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0, 100% 0);
 	}
 }
@@ -402,6 +403,88 @@ body {
   50% { left: 72%; top: 72%; }
   60% { left: 92%; top: 93%; }
   100% { left: 150%; top: 150%; }
+}
+
+.hand.player2.o0{
+  animation: o0 1s;
+} @keyframes o0 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 16%; top: 4%; } /*top center, start and end*/
+  40% { left: 29%; } /*right*/
+  50% { top: 27%;} /*bottom*/
+  60% { left: 4%; } /*left*/
+}
+.hand.player2.o1{
+  animation: o1 1s;
+} @keyframes o1 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 49%; top: 4%; } /*top center, start and end*/
+  40% { left: 62%; } /*right*/
+  50% { top: 29%;} /*bottom*/
+  60% { left: 37%; } /*left*/
+}
+.hand.player2.o2{
+  animation: o2 1s;
+} @keyframes o2 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 82%; top: 4%; } /*top center, start and end*/
+  40% { left: 95%; } /*right*/
+  50% { top: 28%;} /*bottom*/
+  60% { left: 70%; } /*left*/
+}
+.hand.player2.o3{
+  animation: o3 1s;
+} @keyframes o3 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 16%; top: 38%; } /*top center, start and end*/
+  40% { left: 28%; } /*right*/
+  50% { top: 62%;} /*bottom*/
+  60% { left: 4%; } /*left*/
+}
+.hand.player2.o4{
+  animation: o4 1s;
+} @keyframes o4 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 49%; top: 37%; } /*top center, start and end*/
+  40% { left: 62%; } /*right*/
+  50% { top: 61%;} /*bottom*/
+  60% { left: 38%; } /*left*/
+}
+.hand.player2.o5{
+  animation: o5 1s;
+} @keyframes o5 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 83%; top: 37%; } /*top center, start and end*/
+  40% { left: 95%; } /*right*/
+  50% { top: 61%;} /*bottom*/
+  60% { left: 71%; } /*left*/
+}
+.hand.player2.o6{
+  animation: o6 1s;
+} @keyframes o6 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 16%; top: 71%; } /*top center, start and end*/
+  40% { left: 29%; } /*right*/
+  50% { top: 95%;} /*bottom*/
+  60% { left: 4%; } /*left*/
+}
+.hand.player2.o7{
+  animation: o7 1s;
+} @keyframes o7 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 49%; top: 70%; } /*top center, start and end*/
+  40% { left: 62%; } /*right*/
+  50% { top: 95%;} /*bottom*/
+  60% { left: 37%; } /*left*/
+}
+.hand.player2.o8{
+  animation: o8 1s;
+} @keyframes o8 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 83%; top: 70%; } /*top center, start and end*/
+  40% { left: 95%; } /*right*/
+  50% { top: 95%;} /*bottom*/
+  60% { left: 70%; } /*left*/
 }
 
 

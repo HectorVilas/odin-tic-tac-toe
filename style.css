@@ -119,52 +119,48 @@ body {
   20%, to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 }
 
+.Strikethrough {
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
 .Strikethrough.h1 {
   top: 15%;
   rotate: 1deg;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
 .Strikethrough.h2 {
   top: 50%;
   rotate: -1.5deg;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.h3 {
   bottom: 15%;
   rotate: .5deg;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.v1 {
   rotate: 90.5deg;
   top: 49%;
   right: 32%;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.v2 {
   rotate: 90deg;
   top: 49%;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.v3 {
   rotate: 91deg;
   top: 49%;
   left: 32%;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.d1 { /* top left to bottom right*/
   rotate: 46deg;
   top: 50%;
   left: -10%;
   width: 125%;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.d2 { /* bottom left to top right*/
   rotate: -44deg;
   top: 50%;
   right: -10%;
   width: 125%;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 .Strikethrough.animate {
   transition: 250ms 250ms;

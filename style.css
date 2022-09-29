@@ -189,6 +189,35 @@ body {
   transition: clip-path 100ms 500ms;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
+.circle {
+  position: absolute;
+  background: url(./media/images/pencil-stroke-circle.png);
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+}
+.circle.animate {
+  animation: draw-circle 1s linear;
+  animation-fill-mode: forwards;
+}
+@keyframes draw-circle {
+	0%, 15% {
+		clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+	}
+	30% {
+		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 100% 100%, 100% 100%, 100% 100%);
+	}
+	45% {
+		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 100%, 0 100%);
+	}
+	60% {
+		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+	}
+	75%, 100% {
+		clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0, 100% 0);
+	}
+}
 
 .hand {
   position: absolute;
@@ -198,7 +227,12 @@ body {
   scale: 75%;
   transition: position .5s;
 }
-.hand.animate {
+.hand.player2 {
+  left: -50%;
+  top: -50%;
+  rotate: 180deg;
+}
+.hand.player1.animate {
   animation: board-draw var(--lines-draw-time) var(--lines-draw-delay);
 }
 
@@ -214,7 +248,7 @@ body {
   80% { left: 100%; top: 66%; rotate: -1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.strikeh1{
+.hand.player1.strikeh1{
   animation: strikeh1 1s;
 } @keyframes strikeh1 {
   0% {left: 150%; top: 150%; }
@@ -222,7 +256,7 @@ body {
   50% { left: 0%; top: 14%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.strikeh2{
+.hand.player1.strikeh2{
   animation: strikeh2 1s;
 } @keyframes strikeh2 {
   0% {left: 150%; top: 150%; }
@@ -230,7 +264,7 @@ body {
   50% { left: 0%; top: 50%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.strikeh3{
+.hand.player1.strikeh3{
   animation: strikeh3 1s;
 } @keyframes strikeh3 {
   0% {left: 150%; top: 150%; }
@@ -238,7 +272,7 @@ body {
   50% { left: 0%; top: 82%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.strikev1{
+.hand.player1.strikev1{
   animation: strikev1 1s;
 } @keyframes strikev1 {
   0% {left: 150%; top: 150%; }
@@ -246,7 +280,7 @@ body {
   50% { left: 14%; top: 0%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.strikev2{
+.hand.player1.strikev2{
   animation: strikev2 1s;
 } @keyframes strikev2 {
   0% {left: 150%; top: 150%; }
@@ -254,7 +288,7 @@ body {
   50% { left: 50%; top: 0%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.strikev3{
+.hand.player1.strikev3{
   animation: strikev3 1s;
 } @keyframes strikev3 {
   0% {left: 150%; top: 150%; }
@@ -262,7 +296,7 @@ body {
   50% { left: 80%; top: 0%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.striked1{
+.hand.player1.striked1{
   animation: striked1 1s;
 } @keyframes striked1 {
   0% {left: 150%; top: 150%; }
@@ -270,7 +304,7 @@ body {
   50% { left: 5%; top: 5%; rotate: 1deg; }
   100% { left: 150%; top: 150%; }
 }
-.hand.striked2{
+.hand.player1.striked2{
   animation: striked2 1s;
 } @keyframes striked2 {
   0% {left: 150%; top: 150%; }
@@ -279,7 +313,7 @@ body {
   100% { left: 150%; top: 150%; }
 }
 
-.hand.x0{
+.hand.player1.x0{
   animation: x0 1s;
 } @keyframes x0 {
   0% {left: 150%; top: 150%; }
@@ -289,7 +323,7 @@ body {
   60% { left: 26%; top: 26%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x1{
+.hand.player1.x1{
   animation: x1 1s;
 } @keyframes x1 {
   0% {left: 150%; top: 150%; }
@@ -299,7 +333,7 @@ body {
   60% { left: 59%; top: 27%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x2{
+.hand.player1.x2{
   animation: x2 1s;
 } @keyframes x2 {
   0% {left: 150%; top: 150%; }
@@ -309,7 +343,7 @@ body {
   60% { left: 92%; top: 26%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x3{
+.hand.player1.x3{
   animation: x3 1s;
 } @keyframes x3 {
   0% {left: 150%; top: 150%; }
@@ -319,7 +353,7 @@ body {
   60% { left: 26%; top: 59%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x4{
+.hand.player1.x4{
   animation: x4 1s;
 } @keyframes x4 {
   0% {left: 150%; top: 150%; }
@@ -329,7 +363,7 @@ body {
   60% { left: 60%; top: 60%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x5{
+.hand.player1.x5{
   animation: x5 1s;
 } @keyframes x5 {
   0% {left: 150%; top: 150%; }
@@ -339,7 +373,7 @@ body {
   60% { left: 92%; top: 59%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x6{
+.hand.player1.x6{
   animation: x6 1s;
 } @keyframes x6 {
   0% {left: 150%; top: 150%; }
@@ -349,7 +383,7 @@ body {
   60% { left: 26%; top: 93%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x7{
+.hand.player1.x7{
   animation: x7 1s;
 } @keyframes x7 {
   0% {left: 150%; top: 150%; }
@@ -359,7 +393,7 @@ body {
   60% { left: 60%; top: 93%; }
   100% { left: 150%; top: 150%; }
 }
-.hand.x8{
+.hand.player1.x8{
   animation: x8 1s;
 } @keyframes x8 {
   0% {left: 150%; top: 150%; }

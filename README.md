@@ -244,3 +244,39 @@ Another little change was adding a `gameOver` boolean, so delays won't re-enable
 
 ### thoughts:
 Today I've been working on this project for hours, mostly finding a way to do some stuff on Gimp and InkScape, and experimenting with the code. Tomorrow I'll try to make the hand draw the circles. My idea was the same as the "X" symbol drawing, but using `clip-path` differently, to reveal the circle from the center, and move the `transform-origin` for the hand away from it's 0 0 position, so it can rotate from the center of the circle, while the hand image rotates the same way but with negative values, giving an impression of it drawing a circle.
+
+## update 9
+Today I made lots of little changes in the code and finally added a visible second player. This is what I did:
+
+I reduced a lot of repetition in `CSS` and `Js`. I think I can even reduce it a little more, I have to read it all again.
+
+After experimenting a little with `clip-path`, I found a way to make a cirle appear like being drawn. I've been experimenting in [CodePen](https://codepen.io/) and making the sapes with [Clippy](https://bennettfeely.com/clippy/). After moving the code I wrote to this project, I duplicated the hand for the second player. Then I spent a few hours figuring out how to make it draw the circle, and came with a simple solution:
+
+```CSS
+.hand.player2.o5{
+  animation: o5 1s;
+} @keyframes o5 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 83%; top: 37%; } /*top center, start and end*/
+  40% { left: 95%; } /*right*/
+  50% { top: 61%;} /*bottom*/
+  60% { left: 71%; } /*left*/
+}
+```
+
+`left` and `top` are separated in different percentages of the timeline. They just move like individually in horizontal and vertical, then the combination make it look like moving in a circle. Now it can act like drawing:
+
+I was going to use `offset-path`, but this will also rotate the hand, making things even harder. My solution is not perfect, but with the hands moving fast it's hard to notice imperfections. Still I can adjust things a little more.
+
+I've also been working with Gimp, because the circle had bigger resolution than the rest, and the line was thin. The brush for the lines have a rectangular shape, so I've been experimenting with other brushes, because it won't rotate with the circular shape. I think the final result is pretty good.
+
+And finally I've been adjusting the delays (I need it because the animations), making it possible to play faster. Instead of waiting for the players to move their hands after drawing, the other player can start anyways, without breaking any animation.
+
+Here's a GIF showing a quick match (with the new circle drawing animation and image), no more long waits between turns.
+
+![](READMEmd/progress08.gif)
+
+### thoughts:
+I think this is it, I should add the rest of the requisites for the course, like custom player names and scores on screen. To make things look better without HUD, I want to make the players talk. Instead of adding one to a number, the player may say it's score, or maybe taunt the other player, calling them by their respective names. Other animations and even dialogues may be added to make it feel more alive.
+
+About the artificial inteligence, with very little code I can make it play as a second player, but I'm not sure if I'll be able to create it's logic.

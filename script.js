@@ -41,25 +41,13 @@ const displayController = (() => {
       if(gameFlow.getTurns() === 0){
         setTimeout(() => {
           newMatch();
-        }, 500);
+        }, 1200);
       };
     };
     
   };
 
-  function cellHover(bool){
-    if(bool){
-      setTimeout(() => {
-        cells.forEach(c => c.classList.add("can-play"))
-    
-      }, 3000);
-    } else {
-      cells.forEach(c => c.classList.remove("can-play"));
-    }
-  };
-
   const newMatch = () => {
-    cellHover(true);
     btnStartGame.classList.add("hidden");
     gameFlow.resetTurns();
     
@@ -97,7 +85,7 @@ const displayController = (() => {
       lines[3].style.rotate = `${Math.random()*(273-267)+267}deg`; //270
 
       setTimeout(() => {
-        [...lines,handP1].forEach(line => {
+        [...lines,handP1,handP2].forEach(line => {
           line.classList.add("animate");
         });
       }, 100);
@@ -133,7 +121,7 @@ const displayController = (() => {
       circles[pos].classList.add("animate");
     };
   };
-  return { addListeners, strikeLine, newMatch, cellHover, drawSymbol };
+  return { addListeners, strikeLine, newMatch, drawSymbol };
 })();
 
 
@@ -190,7 +178,6 @@ const gameFlow = (() => {
     matchEnd();
     board.fill(0); //prevents adding extra points while animations plays
     setTimeout(() => {
-      displayController.cellHover(false);
       displayController.strikeLine(pos);
       playerOneTurn ? player1.addScore() : player2.addScore();
       setTimeout(() => {
@@ -202,17 +189,15 @@ const gameFlow = (() => {
 
   const turnsMinusOne = () => turnsRemaining--;
   const getTurns = () => turnsRemaining;
-  const resetTurns = () => {turnsRemaining = 9; displayController.cellHover(false)};
+  const resetTurns = () => turnsRemaining = 9;
   const getCurrentPlayer = () => playerOneTurn;
   const playDelay = () => {
     gameInProcess = false;
-    displayController.cellHover(false);
     setTimeout(() => {
       if(!gameOver) {
         gameInProcess = true;
       }
-      displayController.cellHover(true);
-    }, 1000);
+    }, 500);
   };
 
   return {winConditions, board, swapPlayer, placeMark, getCurrentPlayer,

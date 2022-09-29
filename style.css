@@ -52,7 +52,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 3em;
-} .cell.can-play:hover {
+} .cell:hover {
   background-color: rgba(231, 236, 185, 0.5);
   cursor: pointer;
 }

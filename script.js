@@ -77,12 +77,11 @@ const displayController = (() => {
     setTimeout(() => { pageTurn.classList.add("animate") }, 100);
   
     setTimeout(() => {
-      [...lines,...Strikethrough].forEach(line => {
+      //reset game board
+      [...lines,...Strikethrough,...symbolX1,
+        ...symbolX2,...circles].forEach(line => {
         line.classList.remove("animate")
       });
-      //reset game board
-      symbolX1.forEach(s => s.classList.remove("animate"));
-      symbolX2.forEach(s => s.classList.remove("animate"));
       gameFlow.board.fill(0);
       gameFlow.matchStart();
       

@@ -119,9 +119,19 @@ const displayController = (() => {
       handP1.classList.add(`x${pos}`);
       symbolX1[pos].classList.add("animate");
       symbolX2[pos].classList.add("animate");
+      setTimeout(() => {
+        sound.draw();
+        setTimeout(() => {
+          sound.draw();
+        }, 175);
+      }, 250);
+
     } else { // draws O
       handP2.classList.add(`o${pos}`);
       circles[pos].classList.add("animate");
+      setTimeout(() => {
+        sound.draw();
+      }, 250);
     };
   };
   return { addListeners, strikeLine, newMatch, drawSymbol };

@@ -280,3 +280,43 @@ Here's a GIF showing a quick match (with the new circle drawing animation and im
 I think this is it, I should add the rest of the requisites for the course, like custom player names and scores on screen. To make things look better without HUD, I want to make the players talk. Instead of adding one to a number, the player may say it's score, or maybe taunt the other player, calling them by their respective names. Other animations and even dialogues may be added to make it feel more alive.
 
 About the artificial inteligence, with very little code I can make it play as a second player, but I'm not sure if I'll be able to create it's logic.
+
+## update 10
+I noticed a lot of repetition in the `CSS`. Lots of keyframes had the same values at `0%` and `100%` (initial and ending position of the hands are the same), so instead of:
+
+```css
+@keyframes strikeh1 {
+  0% {left: 150%; top: 150%; }
+  25% { left: 100%; top: 14% }
+  50% { left: 0%; top: 14%; }
+  100% {left: 150%; top: 150%; }
+}
+```
+
+I just removed the last line and made `100%` share properties with `0%`:
+
+```css
+@keyframes strikeh1 {
+  0%, 100% {left: 150%; top: 150%; }
+  25% { left: 100%; top: 14% }
+  50% { left: 0%; top: 14%; }
+}
+```
+
+I've already done this with the circles, I've done the same for starting-finishing position for the hand, also for the circle, which starts and ends in the same point (`30%, 72%`):
+
+```css
+@keyframes o0 {
+  0%, 100% {left: -50%; top: -50%; }
+  30%, 72%{ left: 16%; top: 4%; } /*top center, start and end*/
+  40% { left: 29%; } /*right*/
+  50% { top: 27%;} /*bottom*/
+  60% { left: 4%; } /*left*/
+}
+```
+
+I think I'm getting a good grip of `@keyframes`.
+
+The next change was moving those starting positions to variables, because I wanted to make a little change, and it's position was repeated a lot. After this, I noticed that the hands are visible with a 30% zoom (on a 1080p screen), so I used the `vmax` unit to keep them always out of the screen. I'm not sure about the horizontal position, maybe I should leave it at `100%` and `0%` for each player's hand respectively, for ultrawide screens (update: done, also min-max hand size for different screen sizes).
+
+I also made other little changes, like adjusting the `clip-path` for the circles so it won't show a small line at the corner of the cell and made the hand for the second player strikethrough it's own marks.

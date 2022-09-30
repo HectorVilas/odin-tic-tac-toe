@@ -10,9 +10,9 @@
       rgba(231, 236, 185, 0.25)
     ),
     url(./media/images/paper-textured-background.jpg);
-  --hand-player-1-rest-x: 100vmax;
+  --hand-player-1-rest-x: 100%;
   --hand-player-1-rest-y: 100vmax;
-  --hand-player-2-rest-x: -100vmax;
+  --hand-player-2-rest-x: 0%;
   --hand-player-2-rest-y: -100vmax;
 }
 
@@ -232,6 +232,10 @@ body {
   scale: 75%;
   transition: position .5s;
   pointer-events: none;
+}.hand > img {
+  min-width: 100vw;
+  max-width: 150%;
+  height: auto;
 }
 .hand.player2 {
   left: var(--hand-player-2-rest-x);

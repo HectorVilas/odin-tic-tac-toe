@@ -94,7 +94,10 @@ const displayController = (() => {
 
   const strikeLine = (l) => {
     const line = (l, i) => {
-      handP1.classList.add(`strike${l}`);
+      //check which hand must strike a line
+      gameFlow.getCurrentPlayer() ? handP2.classList.add(`strike${l}`)
+      : handP1.classList.add(`strike${l}`);
+
       Strikethrough[i].classList.add("animate");
       setTimeout(() => {
         sound.draw();

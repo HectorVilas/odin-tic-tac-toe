@@ -7,12 +7,12 @@ const displayController = (() => {
   const symbolX1 = document.querySelectorAll(".x1");
   const symbolX2 = document.querySelectorAll(".x2");
   const circles = document.querySelectorAll(".circle");
-  //animation related
   const handP1 = document.querySelector(".hand.player1");
   const handP2 = document.querySelector(".hand.player2");
   const pageTurn = document.querySelector(".page-turn");
-  //buttons
+  const messages = document.querySelectorAll(".messages");
   const btnStartGame = document.querySelector(".btn-start-game");
+  let messageCount = 0;
   
   const addListeners = () => {
     btnStartGame.addEventListener("click", newMatch);
@@ -36,6 +36,7 @@ const displayController = (() => {
       // this.innerText = gameFlow.placeMark();
       drawSymbol(idx);
       gameFlow.turnsMinusOne();
+      talk("done", gameFlow.getCurrentPlayer());
       gameFlow.winConditions();
       gameFlow.swapPlayer();
       if(gameFlow.getTurns() === 0){
@@ -134,6 +135,56 @@ const displayController = (() => {
       }, 250);
     };
   };
+
+  const talk = (action, player) => {
+    const done = ["Done.", "Your turn.", "Top this!", "Let's try this.",
+    "Hmm... here?", "Now you.", "Done, go."];
+    const noMoreTurns = ["Ah, crap.", "Darn.", "A tie.", "Damn.", "Aw.",
+    "Let's try again.", "Oh, well."];
+    const win = ["Aw, yeah.", "Take that!", "Hahaaa!", "Hahahaha!",
+    "In yor face!", "That was easy."];
+    // const lose = ["Oh, screw you.", "Time to get serious", "Now I'm mad",
+    // ""];
+    let id = messageCount;
+
+    const currentPlayer = player || player === "p1" ? 0 : 1;
+    const currentPlayerMsg = gameFlow.getCurrentPlayer() ? messages[0] : messages[1];
+    // const otherPlayer = player || player === "p2" ? 1 : 0;
+    // const otherPlayerMsg = gameFlow.getCurrentPlayer() ? messages[1] : messages[2];
+    
+    const card = document.createElement("div");
+    card.id = `msg${id}`;
+    card.classList.add("card", "collapsed");
+    const para = document.createElement("p");
+  
+    if(gameFlow.winConditions()) {
+      let i = Math.floor(Math.random()*win.length);
+      para.innerText = win[i];
+    } else if(gameFlow.getTurns() === 0){
+      let i = Math.floor(Math.random()*noMoreTurns.length);
+      para.innerText = noMoreTurns[i];
+    } else if(action === "done"){
+      let i = Math.floor(Math.random()*done.length);
+      para.innerText = done[i];
+    };
+
+    card.appendChild(para);
+    currentPlayerMsg.appendChild(card);
+
+    setTimeout(() => {
+      card.classList.remove("collapsed");
+    }, 200);
+
+    setTimeout(() => {
+      card.classList.add("collapsed");
+      setTimeout(() => {
+        let child = document.querySelector(`#msg${id}`);
+        messages[currentPlayer].removeChild(child);
+      }, 250);
+    }, 2500);
+    messageCount++;
+  };
+
   return { addListeners, strikeLine, newMatch, drawSymbol };
 })();
 
@@ -170,21 +221,31 @@ const gameFlow = (() => {
   function winConditions(){
     if(board[0] === board[1] && board[1] === board[2] && board[0] !== 0){
       winGame("h1");
+      return true;
     } else if(board[3] === board[4] && board[4] === board[5] && board[3] !== 0){
       winGame("h2");
+      return true;
     } else if(board[6] === board[7] && board[7] === board[8] && board[6] !== 0){
       winGame("h3");
+      return true;
     } else if(board[0] === board[3] && board[3] === board[6] && board[0] !== 0){
       winGame("v1");
+      return true;
     } else if(board[1] === board[4] && board[4] === board[7] && board[1] !== 0){
       winGame("v2");
+      return true;
     } else if(board[2] === board[5] && board[5] === board[8] && board[2] !== 0){
       winGame("v3");
+      return true;
     } else if(board[0] === board[4] && board[4] === board[8] && board[0] !== 0){
       winGame("d1");
+      return true;
     } else if(board[2] === board[4] && board[4] === board[6] && board[2] !== 0){
       winGame("d2");
-    }
+      return true;
+    } else {
+      return false;
+    };
   };
 
   function winGame(pos){
@@ -262,10 +323,10 @@ const player2 = Player("p2", "O");
 //for testing
 
 //get left and top percentages for board on click position
-const board = document.querySelector(".board");
-board.addEventListener("click", (e) => {
-  console.log(
-    Math.floor((e.clientX - board.offsetLeft) * 100 / board.clientWidth),
-    Math.floor((e.clientY-board.offsetTop) * 100 / board.clientHeight)
-  );
-})
+// const board = document.querySelector(".board");
+// board.addEventListener("click", (e) => {
+//   console.log(
+//     Math.floor((e.clientX - board.offsetLeft) * 100 / board.clientWidth),
+//     Math.floor((e.clientY-board.offsetTop) * 100 / board.clientHeight)
+//   );
+// })

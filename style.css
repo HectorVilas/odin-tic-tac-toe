@@ -41,7 +41,7 @@ body {
 /* - - - board - - - */
 .board {
   position: absolute;
-  isolation: isolate;
+  /* isolation: isolate; */
   padding: var(--grid-paper);
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
@@ -570,6 +570,46 @@ body {
     rotate: 2deg;
     filter: drop-shadow(-10rem 0 10rem rgba(0, 0, 0, .5));
   }
+}
+
+
+
+/* dialogues */
+
+.messages {
+  --height: 150px;
+  display: flex;
+  position: absolute;
+  font-size: 3rem;
+  width: 75%;
+  height: var(--height);
+  flex-direction: column;
+  z-index: 3;
+}.messages p {
+  margin: 0;
+  padding: 0;
+}
+.messages.player1 {
+  justify-content: flex-start;
+  align-items: flex-end;
+  right: 0;
+  bottom: calc(var(--height) * -1);
+}
+.messages.player2 {
+  left: 0;
+  top: calc(var(--height) * -1);
+  justify-content: flex-end;
+}
+
+.card {
+  /* text-shadow: 1px 1px 3px black; */
+  text-shadow: 0 0 5px white;
+  font-weight: 800;
+  transition: 200ms;
+  overflow: hidden;
+  height: 4rem;
+}.card.collapsed {
+  height: 0rem;
 }
 
 

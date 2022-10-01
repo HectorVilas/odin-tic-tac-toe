@@ -320,3 +320,10 @@ I think I'm getting a good grip of `@keyframes`.
 The next change was moving those starting positions to variables, because I wanted to make a little change, and it's position was repeated a lot. After this, I noticed that the hands are visible with a 30% zoom (on a 1080p screen), so I used the `vmax` unit to keep them always out of the screen. I'm not sure about the horizontal position, maybe I should leave it at `100%` and `0%` for each player's hand respectively, for ultrawide screens (update: done, also min-max hand size for different screen sizes).
 
 I also made other little changes, like adjusting the `clip-path` for the circles so it won't show a small line at the corner of the cell and made the hand for the second player strikethrough it's own marks.
+
+## update 11
+I've been working in making the two players talk. I declared 3 arrays with different quotes: for winning, for a tie and for a regular turn. Then I've been experimenting again in [CodePen](https://codepen.io/) and came with a way to make the messages appear with a little transition, stay on screen for a second and delete itself after disappearing with another transition.
+
+![](READMEmd/progress09.gif)
+
+As you can see, when there's a tie or one player wins, the dialogue is different. It's not something to brag about, but at least the game feels a little more alive.

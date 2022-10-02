@@ -40,7 +40,7 @@ const displayController = (() => {
       talk("played");
       gameFlow.winConditions();
       gameFlow.swapPlayer();
-      if(gameFlow.getTurns() === 0){
+      if(gameFlow.getTurns() === 0 && !gameFlow.winConditions()){
         setTimeout(() => {
           newMatch();
         }, 1200);
@@ -267,7 +267,9 @@ const gameFlow = (() => {
 
   function winGame(pos){
     matchEnd();
-    board.fill(0); //prevents adding extra points while animations plays
+    setTimeout(() => { //delay so win condition can be checked first
+      board.fill(0); //prevents adding extra points while animations plays
+    }, 100);
     playerOneTurn ? player1.addScore() : player2.addScore();
     setTimeout(() => {
       displayController.strikeLine(pos);

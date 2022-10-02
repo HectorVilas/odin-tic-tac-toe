@@ -335,7 +335,7 @@ I've also been working in the dialogues styling. Now those will appear with `rot
 
 ![](READMEmd/progress10.gif)
 
-And finally I discovered why winning using the last free space. The fix was very easy but finding out where to fix it wasn't. Also fixed the score, the loser was getting it.
+And finally I discovered why winning using the last free space will interrupt the strikethrough animation and flip the page twice: both conditions had different times for the `setTimeout`, and each one had the same function to start a new match. The fix was very easy but finding out where to fix it wasn't. Also fixed the score, the loser was getting the point.
 
 ### thoughts:
 I want to keep the natural feeling of the game, I don't want to add modals or any kind of HUD. I need to find a way to let the players put their names. Instead of showing it on screen, the characters will mention each other while talking. I may do something similar for the score, at some point the winner may say something like "3 vs 1; I'm still winning".

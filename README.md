@@ -48,7 +48,7 @@ The code:
 The game:
 - ❌start asking for players names (player1 and player2 at default)
 - ✔️draw the board, empty
-- ❌at random one of the player starts
+- ~~at random one of the player starts~~ player 1 always starts
 - ✔️player1 places ~~circles~~ crosses and player2 ~~crosses~~ circles
 - ✔️each time a player places a mark, it's the other player's turn
 - ✔️marks can only be placed at empty spaces
@@ -56,7 +56,7 @@ The game:
 - - ✔️3 marks of the same player must form an horizontal, vertical or diagonal line
 - - ✔️if there's a line, the game ends, the player that made the line wins
 - - ✔️when another game starts, first play is for the player that lost
-- - ❓on a tie, the starting player is chosen at random
+- - ~~on a tie, the starting player is chosen at random~~ always change turns
 
 
 ## update 1
@@ -327,3 +327,17 @@ I've been working in making the two players talk. I declared 3 arrays with diffe
 ![](READMEmd/progress09.gif)
 
 As you can see, when there's a tie or one player wins, the dialogue is different. It's not something to brag about, but at least the game feels a little more alive.
+
+## update 12
+Today I moved the card creation code for the dialogues to another function, now I can take advantage of this and create other dialogue events. I also added a few more dialogues, this time the players can mention the other player's name, also the loser will also have a dialogue.
+
+I've also been working in the dialogues styling. Now those will appear with `rotateY()`, sliding from a border and with a pulsing background so it's easier to notice a new dialogue appeared and how long it has been there. After a second, it will delete itself.
+
+![](READMEmd/progress10.gif)
+
+And finally I discovered why winning using the last free space. The fix was very easy but finding out where to fix it wasn't. Also fixed the score, the loser was getting it.
+
+### thoughts:
+I want to keep the natural feeling of the game, I don't want to add modals or any kind of HUD. I need to find a way to let the players put their names. Instead of showing it on screen, the characters will mention each other while talking. I may do something similar for the score, at some point the winner may say something like "3 vs 1; I'm still winning".
+
+I'm not sure how I'll manage the restart button. Maybe some visual item on screen, an eraser, which when clicked will restart the game. I also want the players to change their names at any moment, so this will be another challenge. "Stop calling me [actual name here], I prefer..." and then let the player write another name.

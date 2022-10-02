@@ -13,6 +13,7 @@ const displayController = (() => {
   const messages = document.querySelectorAll(".messages");
   const btnStartGame = document.querySelector(".btn-start-game");
   let messageCount = 0;
+  let playersTalking = false;
   
   const addListeners = () => {
     btnStartGame.addEventListener("click", newMatch);
@@ -36,7 +37,7 @@ const displayController = (() => {
       // this.innerText = gameFlow.placeMark();
       drawSymbol(idx);
       gameFlow.turnsMinusOne();
-      talk("done", gameFlow.getCurrentPlayer());
+      talk("played");
       gameFlow.winConditions();
       gameFlow.swapPlayer();
       if(gameFlow.getTurns() === 0){
@@ -136,40 +137,49 @@ const displayController = (() => {
     };
   };
 
-  const talk = (action, player) => {
-    const done = ["Done.", "Your turn.", "Top this!", "Let's try this.",
+  const talk = (action) => {
+    const played = ["Done.", "Your turn.", "Top this!", "Let's try this.",
     "Hmm... here?", "Now you.", "Done, go."];
     const noMoreTurns = ["Ah, crap.", "Darn.", "A tie.", "Damn.", "Aw.",
     "Let's try again.", "Oh, well."];
     const win = ["Aw, yeah.", "Take that!", "Hahaaa!", "Hahahaha!",
-    "In yor face!", "That was easy."];
-    // const lose = ["Oh, screw you.", "Time to get serious", "Now I'm mad",
-    // ""];
+    "In yor face!", "That was easy.", "Heh!"];
+    const lose = ["Oh, screw you.", "Time to get serious.", "Now I'm mad.",
+    "Come on, really?", "You got lucky."];
+
+    if(gameFlow.winConditions() && !playersTalking) {
+      let i = Math.floor(Math.random()*win.length);
+      let j = Math.floor(Math.random()*lose.length);
+      createCard(gameFlow.getCurrentPlayer(), win[i]);
+      //store the other player before swap, answer for player who loses
+      let theOtherPlayer = !gameFlow.getCurrentPlayer(); 
+      setTimeout(() => {
+        createCard(theOtherPlayer, lose[j]);
+      }, 500);
+    } else if(gameFlow.getTurns() === 0 && !playersTalking){
+      let i = Math.floor(Math.random()*noMoreTurns.length);
+      createCard(gameFlow.getCurrentPlayer(), noMoreTurns[i]);
+    } else if(action === "played" && !playersTalking){
+      let i = Math.floor(Math.random()*played.length);
+      createCard(gameFlow.getCurrentPlayer(), played[i]);
+    };
+  };
+
+  const createCard = (player, message) => {
     let id = messageCount;
 
-    const currentPlayer = player || player === "p1" ? 0 : 1;
-    const currentPlayerMsg = gameFlow.getCurrentPlayer() ? messages[0] : messages[1];
-    // const otherPlayer = player || player === "p2" ? 1 : 0;
-    // const otherPlayerMsg = gameFlow.getCurrentPlayer() ? messages[1] : messages[2];
-    
+    let playerTalking = player === true || player === "p1" ?
+    messages[0] : messages[1];
+
     const card = document.createElement("div");
     card.id = `msg${id}`;
     card.classList.add("card", "collapsed");
     const para = document.createElement("p");
-  
-    if(gameFlow.winConditions()) {
-      let i = Math.floor(Math.random()*win.length);
-      para.innerText = win[i];
-    } else if(gameFlow.getTurns() === 0){
-      let i = Math.floor(Math.random()*noMoreTurns.length);
-      para.innerText = noMoreTurns[i];
-    } else if(action === "done"){
-      let i = Math.floor(Math.random()*done.length);
-      para.innerText = done[i];
-    };
+    para.innerText = message;
+
 
     card.appendChild(para);
-    currentPlayerMsg.appendChild(card);
+    playerTalking.appendChild(card);
 
     setTimeout(() => {
       card.classList.remove("collapsed");
@@ -178,14 +188,16 @@ const displayController = (() => {
     setTimeout(() => {
       card.classList.add("collapsed");
       setTimeout(() => {
-        let child = document.querySelector(`#msg${id}`);
-        messages[currentPlayer].removeChild(child);
+        let childToKill = document.querySelector(`#msg${id}`);
+        childToKill.parentNode.removeChild(childToKill);
       }, 250);
     }, 2500);
     messageCount++;
   };
 
-  return { addListeners, strikeLine, newMatch, drawSymbol };
+  return { addListeners, strikeLine, newMatch, drawSymbol
+  //for testing
+  , createCard };
 })();
 
 

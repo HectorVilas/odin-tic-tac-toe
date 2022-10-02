@@ -138,23 +138,26 @@ const displayController = (() => {
   };
 
   const talk = (action) => {
+    const currentPlayerName = !gameFlow.getCurrentPlayer() ? player2.getName() : player1.getName();
+    const theOtherPlayerName = !gameFlow.getCurrentPlayer() ? player1.getName() : player2.getName();
     const played = ["Done.", "Your turn.", "Top this!", "Let's try this.",
     "Hmm... here?", "Now you.", "Done, go."];
     const noMoreTurns = ["Ah, crap.", "Darn.", "A tie.", "Damn.", "Aw.",
     "Let's try again.", "Oh, well."];
-    const win = ["Aw, yeah.", "Take that!", "Hahaaa!", "Hahahaha!",
-    "In yor face!", "That was easy.", "Heh!"];
-    const lose = ["Oh, screw you.", "Time to get serious.", "Now I'm mad.",
-    "Come on, really?", "You got lucky."];
+    const win = ["Aw, yeah.", `Take that, ${theOtherPlayerName}!`, "Hahaaa!",
+    "Hahahaha!", `In yor face, ${theOtherPlayerName}!`, "That was easy.", "Heh!"];
+    const loserAnswer = [`Oh, screw you, ${currentPlayerName}.`,
+    "Time to get serious.", "Now I'm mad.", "Come on, really?",
+    `You got lucky, ${currentPlayerName}.`];
 
     if(gameFlow.winConditions() && !playersTalking) {
       let i = Math.floor(Math.random()*win.length);
-      let j = Math.floor(Math.random()*lose.length);
+      let j = Math.floor(Math.random()*loserAnswer.length);
       createCard(gameFlow.getCurrentPlayer(), win[i]);
       //store the other player before swap, answer for player who loses
       let theOtherPlayer = !gameFlow.getCurrentPlayer(); 
       setTimeout(() => {
-        createCard(theOtherPlayer, lose[j]);
+        createCard(theOtherPlayer, loserAnswer[j]);
       }, 500);
     } else if(gameFlow.getTurns() === 0 && !playersTalking){
       let i = Math.floor(Math.random()*noMoreTurns.length);
@@ -265,9 +268,9 @@ const gameFlow = (() => {
   function winGame(pos){
     matchEnd();
     board.fill(0); //prevents adding extra points while animations plays
+    playerOneTurn ? player1.addScore() : player2.addScore();
     setTimeout(() => {
       displayController.strikeLine(pos);
-      playerOneTurn ? player1.addScore() : player2.addScore();
       setTimeout(() => {
         displayController.newMatch();
       }, 1000);

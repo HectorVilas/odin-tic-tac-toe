@@ -577,11 +577,11 @@ body {
 /* dialogues */
 
 .messages {
-  --height: 150px;
+  --height: 250px;
   display: flex;
   position: absolute;
   font-size: 3rem;
-  width: 75%;
+  width: 100%;
   height: var(--height);
   flex-direction: column;
   z-index: 3;
@@ -590,8 +590,10 @@ body {
   padding: 0;
 }
 .messages.player1 {
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: flex-end;
+  flex-direction: column-reverse;
+  overflow: hidden;
   right: 0;
   bottom: calc(var(--height) * -1);
 }
@@ -602,14 +604,13 @@ body {
 }
 
 .card {
-  /* text-shadow: 1px 1px 3px black; */
   text-shadow: 0 0 5px white;
   font-weight: 800;
   transition: 200ms;
-  overflow: hidden;
-  height: 4rem;
+  /* overflow: hidden; */
+  transform: rotateX(0deg);
 }.card.collapsed {
-  height: 0rem;
+  transform: rotateX(90deg);
 }
 
 

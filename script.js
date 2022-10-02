@@ -170,12 +170,14 @@ const displayController = (() => {
 
     let playerTalking = player === true || player === "p1" ?
     messages[0] : messages[1];
+    let playerTalkingName = playerTalking === messages[0] ? player1.getName()
+    : player2.getName();
 
     const card = document.createElement("div");
     card.id = `msg${id}`;
     card.classList.add("card", "collapsed");
     const para = document.createElement("p");
-    para.innerText = message;
+    para.innerText = `${playerTalkingName}: ${message}`;
 
 
     card.appendChild(para);
@@ -327,8 +329,8 @@ const Player = (name, mark) => {
 //run on start
 displayController.addListeners();
 
-const player1 = Player("p1", "X");
-const player2 = Player("p2", "O");
+const player1 = Player("player 1", "X");
+const player2 = Player("player 2", "O");
 
 
 

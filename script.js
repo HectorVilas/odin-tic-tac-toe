@@ -144,18 +144,31 @@ const displayController = (() => {
     const theOtherPlayerName = !gameFlow.getCurrentPlayer() ? player1.getName() : player2.getName();
     const chance = Math.floor(Math.random()*100);
     const played = ["Done.", "Your turn.", "Top this!", "Let's try this.",
-    "Hmm... here?", "Now you.", "Done, go."];
+    "Hmm... here?", "Now you.", "Done, go.", "Here.", "This one."];
     const noMoreTurns = ["Ah, crap.", "Darn.", "A tie.", "Damn.", "Aw.",
-    "Let's try again.", "Oh, well."];
+    "Let's try again.", "Oh, well.", "Damn, again.", "Welp.", "Ah, heck.",
+    "Hmm..."];
     const win = ["Aw, yeah.", `Take that, ${theOtherPlayerName}!`, "Hahaaa!",
-    "Hahahaha!", `In yor face, ${theOtherPlayerName}!`, "That was easy.", "Heh!"];
+    "Hahahaha!", `In yor face, ${theOtherPlayerName}!`, "That was easy.",
+    "Heh!", "You know how to play, right?", "See? This is how you play.",
+    `You need more practice, ${theOtherPlayerName}`, "Get rekt!"];
     const loserAnswer = [`Oh, screw you, ${currentPlayerName}.`,
     "Time to get serious.", "Now I'm mad.", "Come on, really?",
-    `You got lucky, ${currentPlayerName}.`];
+    `You got lucky, ${currentPlayerName}.`, "Go suck a lemon.",
+    "don't celebrate yet."];
+    const center = ["Getting the center, huh?", "Come on, That's cheating!",
+    "Center, huh?", "Center start is for losers.", "Desperate for win?",
+    "Somebody doesn't want to lose."];
+
+    //prevent new dialogues until current event ends
+    if(playersTalking) return;
 
     //dialogues for each play
+    if(gameFlow.getTurns() === 8 && gameFlow.board[4] !== 0 ){
+      let i = Math.floor(Math.random()*center.length);
+      createCard(!gameFlow.getCurrentPlayer(), center[i])
     //a player wins, the loser answers
-    if(gameFlow.winConditions() && !playersTalking) {
+    }else if(gameFlow.winConditions()) {
       let i = Math.floor(Math.random()*win.length);
       let j = Math.floor(Math.random()*loserAnswer.length);
       createCard(gameFlow.getCurrentPlayer(), win[i]);
@@ -165,11 +178,11 @@ const displayController = (() => {
         createCard(theOtherPlayer, loserAnswer[j]);
       }, 1000);
     //no more free spaces, a tie
-    } else if(action === "tie" && !playersTalking){
+    } else if(action === "tie"){
       let i = Math.floor(Math.random()*noMoreTurns.length);
       createCard(!gameFlow.getCurrentPlayer(), noMoreTurns[i]);
     //regular play, no tie or win
-    } else if(action === "played" && gameFlow.getTurns() !== 0 && !playersTalking){
+    } else if(action === "played" && gameFlow.getTurns() !== 0){
       let i = Math.floor(Math.random()*played.length);
       createCard(gameFlow.getCurrentPlayer(), played[i]);
     
@@ -186,18 +199,20 @@ const displayController = (() => {
       }, 1000);
     
     } else if (action == "new game" && chance > 10 && chance < 30
-    && (player1.getScore() > 1 || player2.getScore() > 1) && !playersTalking){
+    && (player1.getScore() > 1 || player2.getScore() > 1)){
       setTimeout(() => {
         playersTalking = true;
-        createCard("p1", "What are the scores.");
+        createCard("p1", "What are the scores?");
         setTimeout(() => {
           createCard("p2", "Let me check...");
           setTimeout(() => {
             sound.paper();
             setTimeout(() => {
               createCard("p2", `${player2.getScore()} me, ${player1.getScore()} you. ${player2.getScore() > player1.getScore() ? "I'm winning" : player1.getScore() > player2.getScore() ? "You are winning." : "Same score."}`);
-              playersTalking = false;
-            }, 500);
+              setTimeout(() => {
+                playersTalking = false;
+              }, 1000);
+            }, 1000);
           }, 1000);
         }, 1500);
       }, 1000);

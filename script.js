@@ -41,6 +41,7 @@ const displayController = (() => {
       gameFlow.winConditions();
       gameFlow.swapPlayer();
       if(gameFlow.getTurns() === 0 && !gameFlow.winConditions()){
+        talk("tie");
         setTimeout(() => {
           newMatch();
         }, 1200);
@@ -50,6 +51,7 @@ const displayController = (() => {
   };
 
   const newMatch = () => {
+    talk("new game");
     btnStartGame.classList.add("hidden");
     gameFlow.resetTurns();
     
@@ -140,6 +142,7 @@ const displayController = (() => {
   const talk = (action) => {
     const currentPlayerName = !gameFlow.getCurrentPlayer() ? player2.getName() : player1.getName();
     const theOtherPlayerName = !gameFlow.getCurrentPlayer() ? player1.getName() : player2.getName();
+    const chance = Math.floor(Math.random()*100);
     const played = ["Done.", "Your turn.", "Top this!", "Let's try this.",
     "Hmm... here?", "Now you.", "Done, go."];
     const noMoreTurns = ["Ah, crap.", "Darn.", "A tie.", "Damn.", "Aw.",
@@ -150,6 +153,8 @@ const displayController = (() => {
     "Time to get serious.", "Now I'm mad.", "Come on, really?",
     `You got lucky, ${currentPlayerName}.`];
 
+    //dialogues for each play
+    //a player wins, the loser answers
     if(gameFlow.winConditions() && !playersTalking) {
       let i = Math.floor(Math.random()*win.length);
       let j = Math.floor(Math.random()*loserAnswer.length);
@@ -158,13 +163,43 @@ const displayController = (() => {
       let theOtherPlayer = !gameFlow.getCurrentPlayer(); 
       setTimeout(() => {
         createCard(theOtherPlayer, loserAnswer[j]);
-      }, 500);
-    } else if(gameFlow.getTurns() === 0 && !playersTalking){
+      }, 1000);
+    //no more free spaces, a tie
+    } else if(action === "tie" && !playersTalking){
       let i = Math.floor(Math.random()*noMoreTurns.length);
-      createCard(gameFlow.getCurrentPlayer(), noMoreTurns[i]);
-    } else if(action === "played" && !playersTalking){
+      createCard(!gameFlow.getCurrentPlayer(), noMoreTurns[i]);
+    //regular play, no tie or win
+    } else if(action === "played" && gameFlow.getTurns() !== 0 && !playersTalking){
       let i = Math.floor(Math.random()*played.length);
       createCard(gameFlow.getCurrentPlayer(), played[i]);
+    
+    //dialogues for special events, won't let the others play until finished
+    //on each new game
+    } else if (action === "new game" && chance < 10){
+      playersTalking = true;
+      setTimeout(() => {
+        createCard("p2", "Those lines can't be more crooked.");
+        setTimeout(() => {
+          createCard("p1", `oh, shut up, ${player2.getName()}.`);
+          playersTalking = false;
+        }, 1500);
+      }, 1000);
+    } else if (action == "new game" && chance > 10 && chance < 20
+    && player1.getScore() > 2 || player2.getScore() > 2 && !playersTalking){
+      setTimeout(() => {
+        playersTalking = true;
+        createCard("p1", "What are the scores.");
+        setTimeout(() => {
+          createCard("p2", "Let me check...");
+          setTimeout(() => {
+            sound.paper();
+            setTimeout(() => {
+              createCard("p2", `${player2.getScore()} me, ${player1.getScore()} you. ${player2.getScore() > player1.getScore() ? "I'm winning" : player1.getScore() > player2.getScore() ? "You are winning." : "Same score."}`);
+              playersTalking = false;
+            }, 500);
+          }, 1000);
+        }, 1500);
+      }, 1000);
     };
   };
 
@@ -237,28 +272,28 @@ const gameFlow = (() => {
   const matchStatus = () => gameInProcess;
   function winConditions(){
     if(board[0] === board[1] && board[1] === board[2] && board[0] !== 0){
-      winGame("h1");
+      if(!gameOver) winGame("h1");
       return true;
     } else if(board[3] === board[4] && board[4] === board[5] && board[3] !== 0){
-      winGame("h2");
+      if(!gameOver) winGame("h2");
       return true;
     } else if(board[6] === board[7] && board[7] === board[8] && board[6] !== 0){
-      winGame("h3");
+      if(!gameOver) winGame("h3");
       return true;
     } else if(board[0] === board[3] && board[3] === board[6] && board[0] !== 0){
-      winGame("v1");
+      if(!gameOver) winGame("v1");
       return true;
     } else if(board[1] === board[4] && board[4] === board[7] && board[1] !== 0){
-      winGame("v2");
+      if(!gameOver) winGame("v2");
       return true;
     } else if(board[2] === board[5] && board[5] === board[8] && board[2] !== 0){
-      winGame("v3");
+      if(!gameOver) winGame("v3");
       return true;
     } else if(board[0] === board[4] && board[4] === board[8] && board[0] !== 0){
-      winGame("d1");
+      if(!gameOver) winGame("d1");
       return true;
     } else if(board[2] === board[4] && board[4] === board[6] && board[2] !== 0){
-      winGame("d2");
+      if(!gameOver) winGame("d2");
       return true;
     } else {
       return false;

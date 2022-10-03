@@ -184,8 +184,9 @@ const displayController = (() => {
           playersTalking = false;
         }, 1500);
       }, 1000);
-    } else if (action == "new game" && chance > 10 && chance < 20
-    && player1.getScore() > 2 || player2.getScore() > 2 && !playersTalking){
+    
+    } else if (action == "new game" && chance > 10 && chance < 30
+    && (player1.getScore() > 1 || player2.getScore() > 1) && !playersTalking){
       setTimeout(() => {
         playersTalking = true;
         createCard("p1", "What are the scores.");

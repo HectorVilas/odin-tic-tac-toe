@@ -10,9 +10,15 @@ const displayController = (() => {
   const handP1 = document.querySelector(".hand.player1");
   const handP2 = document.querySelector(".hand.player2");
   const pageTurn = document.querySelector(".page-turn");
+  //phone related
   const messages = document.querySelectorAll(".messages");
   const time = document.querySelectorAll(".cell-phone-time");
-  const name = document.querySelectorAll(".cell-phone-name");
+  const nameOnPhone = document.querySelectorAll(".cell-phone-name");
+  const nameChangeModal = document.querySelectorAll(".cell-phone-modal");
+  const nameChangeTextArea = document.querySelectorAll(".new-name");
+  const btnNameChangeCancel = document.querySelectorAll(".btn-new-name-cancel");
+  const btnNameChangeConfirm = document.querySelectorAll(".btn-new-name-confirm");
+
   let messageCount = 0;
   let playersTalking = false;
   
@@ -28,9 +34,16 @@ const displayController = (() => {
       cell.addEventListener("click", clickCell);
     });
 
-    name.forEach(n => {
-      n.addEventListener("click", changeName)
+    nameOnPhone.forEach(n => {
+      n.addEventListener("click", changeName);
     });
+
+    btnNameChangeCancel.forEach(c => {
+      c.addEventListener("click", closeModal);
+    })
+    btnNameChangeConfirm.forEach(c => {
+      c.addEventListener("click", acceptNameChange);
+    })
 
     setInterval(() => {
       const date = new Date();
@@ -266,8 +279,32 @@ const displayController = (() => {
   };
 
   function changeName(){
-    console.log(this.className.includes("player1"));
+    const i = this.className.includes("player1") ? 0 : 1;
+    
+    nameChangeTextArea[i].value = this.className.includes("player1") ? player1.getName() : player2.getName();
+    nameChangeModal[i].classList.remove("hidden");
   };
+
+  function closeModal(){
+    const i = this.className.includes("player1") ? 0 : 1;
+    nameChangeModal[i].classList.add("hidden");
+  };
+  
+  function acceptNameChange(){
+    const i = this.className.includes("player1") ? 0 : 1;
+    
+    if(nameChangeTextArea[i].value.length === 0) return;
+
+    if(this.className.includes("player1")){
+      player1.changeName(nameChangeTextArea[i].value);
+    } else {
+      player2.changeName(nameChangeTextArea[i].value);
+    };
+
+    nameOnPhone[i].innerText = nameChangeTextArea[i].value;
+    nameChangeModal[i].classList.add("hidden");
+  };
+
 
   return { addListeners, strikeLine, newMatch };
 })();
@@ -387,13 +424,19 @@ const sound = (() => {
 //player constructor, name, mark and score
 const Player = (name, mark) => {
   let score = 0;
+  let previousName = name;
 
   const getName = () => name ;
+  const getPreviousName = () => previousName ;
   const getMark = () => mark;
   const getScore = () => score;
   const addScore = () => ++score;
+  const changeName = (newName) => {
+    previousName = name;
+    name = newName;
+  };
 
-  return { getName, getMark, getScore, addScore };
+  return { getName, getPreviousName, getMark, getScore, addScore, changeName };
 }
 
 

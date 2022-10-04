@@ -725,6 +725,38 @@ body {
   padding-bottom: .5em;
   clip-path: polygon(0 0, 100% 0, 100% 75%, 10% 75%, 0 100%);
 }
+.cell-phone-modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: 45%;
+  width: 90%;
+  bottom: 10%;
+  border-radius: 1rem;
+  background-color: hsl(220, 50%, 50%);
+}.cell-phone-modal textarea {
+  border-radius: .5rem;
+  width: 90%;
+  font-size: 4rem;
+  resize: none;
+}
+.cell-phone-btns {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-size: 3rem;
+  padding: 1rem;
+}.cell-phone-btns > p {
+  margin: 0;
+  border-radius: 50%;
+  padding: .5rem;
+}.cell-phone-btns > p:hover {
+  background-color: hsl(220, 50%, 70%);
+}
 
 .cell-phone.player1 {
   right: 1rem;

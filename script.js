@@ -444,8 +444,8 @@ const Player = (name, mark) => {
 //run on start
 displayController.addListeners();
 
-const player1 = Player("player 1", "X");
-const player2 = Player("player 2", "O");
+const player1 = Player("Jason", "X");
+const player2 = Player("Tom", "O");
 
 displayController.newMatch();
 

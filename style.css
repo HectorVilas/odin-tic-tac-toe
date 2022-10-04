@@ -716,14 +716,17 @@ body {
   border-bottom: 3px solid #555;
   cursor: text;
 } .cell-phone-name:hover::after {
+  --padding: .5em;
+  --dialogue-width: 25px;
   position: absolute;
   content: "Tap to change name";
   left: 10%;
-  top: -20%;
+  bottom: 100%;
   font-size: .25em;
   background-color: hsl(220, 50%, 50%);
-  padding-bottom: .5em;
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 10% 75%, 0 100%);
+  padding: var(--padding);
+  padding-bottom: calc(var(--padding) + var(--dialogue-width));
+  clip-path: polygon(0 0, 100% 0, 100% 75%, var(--dialogue-width) 75%, 0 100%);
 }
 .cell-phone-modal {
   position: absolute;

@@ -251,9 +251,7 @@ const displayController = (() => {
     messageCount++;
   };
 
-  return { addListeners, strikeLine, newMatch, drawSymbol
-  //for testing
-  , createCard };
+  return { addListeners, strikeLine, newMatch };
 })();
 
 
@@ -345,7 +343,7 @@ const gameFlow = (() => {
   };
 
   return {winConditions, board, swapPlayer, placeMark, getCurrentPlayer,
-    matchStart, matchEnd, matchStatus, turnsMinusOne, getTurns, resetTurns,
+    matchStart, matchStatus, turnsMinusOne, getTurns, resetTurns,
     playDelay};
 })()
 

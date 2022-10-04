@@ -12,6 +12,7 @@ const displayController = (() => {
   const pageTurn = document.querySelector(".page-turn");
   const messages = document.querySelectorAll(".messages");
   const btnStartGame = document.querySelector(".btn-start-game");
+  const time = document.querySelectorAll(".cell-phone-time");
   let messageCount = 0;
   let playersTalking = false;
   
@@ -27,6 +28,17 @@ const displayController = (() => {
     cells.forEach( cell => {
       cell.addEventListener("click", clickCell);
     });
+
+    setInterval(() => {
+      const date = new Date();
+      time.forEach(t => {
+        t.innerText = `${
+          date.getHours() < 10 ? "0"+date.getHours() : date.getHours()}:${
+          date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()}:${
+          date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds()}`;
+      })
+    }, 1000);
+    
   };
   
   function clickCell() {

@@ -14,6 +14,7 @@
   --hand-player-1-rest-y: 100vmax;
   --hand-player-2-rest-x: 0%;
   --hand-player-2-rest-y: -100vmax;
+  --phone-height: 700px;
 }
 
 html,
@@ -577,6 +578,7 @@ body {
 /* dialogues */
 
 .messages {
+  pointer-events: none;
   --height: 250px;
   display: flex;
   position: absolute;
@@ -628,6 +630,115 @@ body {
   transform: rotateX(90deg);
 }
 
+
+
+/* phones */
+.cell-phone {
+  --clr-phone: #444;
+  --border-radius: 30px;
+  z-index: 1;
+  position: absolute;
+  isolation: isolate;
+  height: var(--phone-height);
+  width: calc(var(--phone-height) / 1.75);
+  border-radius: var(--border-radius);
+  background-color: var(--clr-phone);
+  box-shadow:
+    inset -3px -3px 10px black,
+    inset 3px 3px 10px #888;
+  display: flex;
+  justify-content: center;
+}.cell-phone-screen {
+  padding: 1.5rem .5rem;
+  margin: 1rem 1rem 2rem 1rem;
+  flex: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: calc(var(--border-radius) / 2);
+  background: radial-gradient(at left, hsl(220, 50%, 30%), hsl(220, 30%, 20%));
+  box-shadow: inset 1px 1px 2px 0 #222;
+}.cell-phone-speaker{
+  position: absolute;
+  top: 2rem;
+  width: 25%;
+  height: 12px;
+  border-radius: 10px;
+  background-color: #333;
+  box-shadow: inset 1px 1px 1px 0 black;
+}.cell-phone-button {
+  position: absolute;
+  bottom: 1rem;
+  border-radius: 20px;
+  border: 5px solid var(--clr-phone);
+  width: 25%;
+  height: 20px;
+  background-color: #555;
+  box-shadow: inset -2px -2px 2px 0 #333;
+}
+/* screen content related */
+.cell-phone-messages {
+  width: 90%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: hsl(220, 50%, 30%);
+}.cell-phone-msg-sender{
+  color: #ccc;
+  font-weight: 800;
+  font-size: 1.30em;
+  margin: .25em 0;
+}.cell-phone-msg {
+  color: #bbb;
+  font-weight: 400;
+  font-size: 1.20em;
+  margin: .25em 0 .75em;
+}
+.cell-phone-messages p:empty {
+  padding: 0;
+  margin: 0;
+}
+.cell-phone-time {
+  position: absolute;
+  top: 30%;
+}
+.cell-phone-screen > p {
+  margin-top: auto;
+  margin-bottom: 20%;
+  text-align: center;
+  font-size: 5rem;
+  color: #aaa;
+  font-family: monospace, 'Courier New', Courier;
+} .cell-phone-name:hover {
+  position: relative;
+  border-bottom: 3px solid #555;
+  cursor: text;
+} .cell-phone-name:hover::after {
+  position: absolute;
+  content: "Tap to change name";
+  left: 10%;
+  top: -20%;
+  font-size: .25em;
+  background-color: hsl(220, 50%, 50%);
+  padding-bottom: .5em;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 10% 75%, 0 100%);
+}
+
+.cell-phone.player1 {
+  right: 1rem;
+  bottom: calc(50px - var(--phone-height));
+  transition: bottom 350ms ease-out;
+}.cell-phone.player1:hover {
+  bottom: 0;
+}
+.cell-phone.player2 {
+  left: 1rem;
+  top: calc(50px - var(--phone-height));
+  transition: top 350ms ease-out;
+}.cell-phone.player2:hover {
+  top: 0;
+}
 
 
 /* buttons */

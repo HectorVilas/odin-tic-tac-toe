@@ -11,13 +11,12 @@ const displayController = (() => {
   const handP2 = document.querySelector(".hand.player2");
   const pageTurn = document.querySelector(".page-turn");
   const messages = document.querySelectorAll(".messages");
-  const btnStartGame = document.querySelector(".btn-start-game");
   const time = document.querySelectorAll(".cell-phone-time");
+  const name = document.querySelectorAll(".cell-phone-name");
   let messageCount = 0;
   let playersTalking = false;
   
   const addListeners = () => {
-    btnStartGame.addEventListener("click", newMatch);
     handP1.addEventListener("animationend", () => {
       handP1.className = "hand player1"; //remove all anim classes except this one
     });
@@ -27,6 +26,10 @@ const displayController = (() => {
     
     cells.forEach( cell => {
       cell.addEventListener("click", clickCell);
+    });
+
+    name.forEach(n => {
+      n.addEventListener("click", changeName)
     });
 
     setInterval(() => {
@@ -64,7 +67,6 @@ const displayController = (() => {
 
   const newMatch = () => {
     talk("new game");
-    btnStartGame.classList.add("hidden");
     gameFlow.resetTurns();
     
     sound.paper();
@@ -263,6 +265,10 @@ const displayController = (() => {
     messageCount++;
   };
 
+  function changeName(){
+    console.log(this.className.includes("player1"));
+  };
+
   return { addListeners, strikeLine, newMatch };
 })();
 
@@ -398,7 +404,7 @@ displayController.addListeners();
 const player1 = Player("player 1", "X");
 const player2 = Player("player 2", "O");
 
-
+displayController.newMatch();
 
 //for testing
 

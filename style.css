@@ -703,7 +703,8 @@ body {
   position: absolute;
   top: 30%;
 }
-.cell-phone-screen > p {
+.cell-phone-screen > p,
+.cell-phone-screen input {
   margin-top: auto;
   margin-bottom: 20%;
   text-align: center;
@@ -738,16 +739,6 @@ body {
   transition: top 350ms ease-out;
 }.cell-phone.player2:hover {
   top: 0;
-}
-
-
-/* buttons */
-
-.btn-start-game {
-  z-index: 1;
-  position: absolute;
-  font-size: 1.5em;
-  padding: 1rem 2rem;
 }
 
 

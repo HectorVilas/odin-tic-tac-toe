@@ -17,9 +17,9 @@ I've been reading and watching videos about patterns and this kind of functions,
 - ✔️write a JS function that will render the contents of the gameboard array to the webpage
 - ✔️functions to allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker
 - ✔️build the logic that checks for when the game is over
-- ❌allow players to put in their names
+- ✔️allow players to put in their names
 - ❌include a button to start/restart the game
-- ❌add a display element that congratulates the winning player
+- ✔️add a display element that congratulates the winning player (it's on their speechs)
 - ❓optional - create an AI so that a player can play against the computer
 - - ❓get the computer to make a random legal move
 - - ❓work on making the computer smart
@@ -30,7 +30,7 @@ I've been reading and watching videos about patterns and this kind of functions,
 
 The page:
 
-- ❌a way to write and edit player names (modal?)
+- ✔️a way to write and edit player names (modal?)
 - ✔️a play area in the center
 - - ✔️made with grid
 - - ~~size adjusted by viewport~~ (static values has been used for aesthetics)
@@ -40,13 +40,13 @@ The page:
 The code:
 
 - ✔️function factory for players
-- - ❌store name
+- - ✔️store name
 - - ✔️store cross or circle for play area
 - ✔️module pattern for board
-- ❓module pattern for rules (or in board too)
+- ~~module pattern for rules (or in board too)~~ It's on gameFlow
 
 The game:
-- ❌start asking for players names (player1 and player2 at default)
+- ~~start asking for players names (player1 and player2 at default)~~ default names by design
 - ✔️draw the board, empty
 - ~~at random one of the player starts~~ player 1 always starts
 - ✔️player1 places ~~circles~~ crosses and player2 ~~crosses~~ circles
@@ -341,3 +341,19 @@ And finally I discovered why winning using the last free space will interrupt th
 I want to keep the natural feeling of the game, I don't want to add modals or any kind of HUD. I need to find a way to let the players put their names. Instead of showing it on screen, the characters will mention each other while talking. I may do something similar for the score, at some point the winner may say something like "3 vs 1; I'm still winning".
 
 I'm not sure how I'll manage the restart button. Maybe some visual item on screen, an eraser, which when clicked will restart the game. I also want the players to change their names at any moment, so this will be another challenge. "Stop calling me [actual name here], I prefer..." and then let the player write another name.
+
+## update 13
+I finally decided how I should let the players change their names: there's two cell phones on screen, poking out at the top and bottom of the screen. With a hover it will appear completely on screen, and here you can see the current player name. Clicking on it (a hover will hint it) will let the player change their names. It also includes the current time just to make it more realistic, and a toast message at top representing a received message (it have a placeholder for now).
+
+![](READMEmd/progress11.gif)
+
+I've been adding new dialogues too, and another condition to mock the player who starts in the center.
+
+I've also been checking the returns for the factory functions, I removed a few of them. Other little changes has been done in the code, nothing too important.
+
+### thoughts:
+This game is almost done (if we don't count the AI implementation). The only thing missing is a way to restart the game (I'll interpret this as a score reset). Maybe I'll make the kids leave (yes, they are bored kids at school), represent the time advancing like a day passed and make them come back.
+
+About my personal additions, I want to add other events, like a dialogue when a player changes the name, maybe an insect walking on the paper, other characters talking with the players, whatever I can add. I also want to let the players receive random messages in their phones, just to make it feel more alive.
+
+About the AI, I was thinking of adding a toggle switch on the phones, some kind of "be right back", to enable de AI on the current player.

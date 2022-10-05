@@ -11,6 +11,7 @@ const displayController = (() => {
   const handP2 = document.querySelector(".hand.player2");
   const pageTurn = document.querySelector(".page-turn");
   //phone related
+  const cellPhone = document.querySelectorAll(".cell-phone");
   const messages = document.querySelectorAll(".messages");
   const time = document.querySelectorAll(".cell-phone-time");
   const nameOnPhone = document.querySelectorAll(".cell-phone-name");
@@ -18,11 +19,14 @@ const displayController = (() => {
   const nameChangeTextArea = document.querySelectorAll(".new-name");
   const btnNameChangeCancel = document.querySelectorAll(".btn-new-name-cancel");
   const btnNameChangeConfirm = document.querySelectorAll(".btn-new-name-confirm");
+  //phone message
+  const phoneMsg = document.querySelectorAll(".cell-phone-msg");
+  const phoneMsgSender = document.querySelectorAll(".cell-phone-msg-sender");
 
   let messageCount = 0;
   let playersTalking = false;
   
-  const addListeners = () => {
+  const startListenersAndFunctions = () => {
     handP1.addEventListener("animationend", () => {
       handP1.className = "hand player1"; //remove all anim classes except this one
     });
@@ -55,6 +59,9 @@ const displayController = (() => {
       })
     }, 1000);
     
+    setInterval(() => {
+      randomPhoneMessage();
+    }, 30000);
   };
   
   function clickCell() {
@@ -334,8 +341,30 @@ const displayController = (() => {
     talk(`name change ${i}`);
   };
 
+  const randomPhoneMessage = () => {
+    const messages = [
+      {sender: "Enlarge your duck!", message: "Do you want to get better at rubber ducking? Check this awesome website to know more about it."},
+      {sender: "Mom", message: "Are you guys still playing tic-tac?"},
+      {sender: "Nigerian Prince", message: "Dear {first_name}, it is a great pleasure to write to you this letter, which I believe..."},
+      {sender: "Steve", message: "Dude, get home, let's play some Mineshaft"},
+      {sender: "Candy Crunch", message: "You received 25.000 candy coins! Open the game to claim your prize."},
+      {sender: "A dolphin", message: "Wanna get rich? Download this app and discover how. Trust me."},
+      {sender: "Dad", message: "Don't forget to walk the dog when you get home."},
+      {sender: "Dad", message: "Hey, champ. What is an NFT? Should I buy one? Do you like monkey drawings?"},
+      {sender: "You won the lottery!", message: "Congratulations! You won 20.000.000 usd! Your phone number has been randomly chosen..."},
+    ];
+    const playerIdx = Math.floor(Math.random() * 2)
+    const i = Math.floor(Math.random() * messages.length);
+    phoneMsgSender[playerIdx].innerText = messages[i].sender;
+    phoneMsg[playerIdx].innerText = messages[i].message;
 
-  return { addListeners, strikeLine, newMatch };
+    cellPhone[playerIdx].classList.add("vibrate");
+    setTimeout(() => {
+      cellPhone[playerIdx].classList.remove("vibrate");
+    }, 500);
+  };
+
+  return { addListeners: startListenersAndFunctions, strikeLine, newMatch };
 })();
 
 

@@ -243,7 +243,33 @@ const displayController = (() => {
           }, 1000);
         }, 1500);
       }, 1000);
+    } else if (action.includes("name change")){
+      const player = action.at(-1) === "0" ? "p1" : "p2";
+      const theOtherPlayer = action.at(-1) === "0" ? "p2" : "p1";
+      const currentName = player === "p1" ? player1.getName() : player2.getName();
+      const previoustName = player === "p1" ? player1.getPreviousName() : player2.getPreviousName();
+      
+      if(currentName === previoustName) return
+      
+      const nameChange = [`Stop calling me ${previoustName}, I prefer ${currentName}.`,
+      `Can you call me ${currentName} instead of ${previoustName}?`,
+      `I don't like ${currentName}, call me ${previoustName}.`];
+      const answer = [`Okay, ${currentName}.`, `Whatever you say, ${currentName}.`,
+      "Okay.", "Okay, no problem.", `${currentName}? really? Okay, I won't laugh`,
+      "As you wish.", "Yeah, why not?"];
+      playersTalking = true;
+      let i = Math.floor(Math.random()*nameChange.length);
+      createCard(player, nameChange[i])
+      setTimeout(() => {
+        let i = Math.floor(Math.random()*answer.length);
+        createCard(theOtherPlayer, answer[i])
+        setTimeout(() => {
+          playersTalking = false;
+        }, 1000);
+      }, 1500);
+
     };
+
   };
 
   const createCard = (player, message) => {
@@ -304,6 +330,8 @@ const displayController = (() => {
     nameOnPhone[i].innerText = nameChangeTextArea[i].value
     + `${nameChangeTextArea[i].value.at(-1).toLowerCase() === "s" ? "'" : "'s"}`;
     nameChangeModal[i].classList.add("hidden");
+
+    talk(`name change ${i}`);
   };
 
 

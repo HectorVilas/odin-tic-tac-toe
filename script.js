@@ -301,7 +301,8 @@ const displayController = (() => {
       player2.changeName(nameChangeTextArea[i].value);
     };
 
-    nameOnPhone[i].innerText = nameChangeTextArea[i].value;
+    nameOnPhone[i].innerText = nameChangeTextArea[i].value
+    + `${nameChangeTextArea[i].value.at(-1).toLowerCase() === "s" ? "'" : "'s"}`;
     nameChangeModal[i].classList.add("hidden");
   };
 

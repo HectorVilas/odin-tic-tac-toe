@@ -357,3 +357,16 @@ This game is almost done (if we don't count the AI implementation). The only thi
 About my personal additions, I want to add other events, like a dialogue when a player changes the name, maybe an insect walking on the paper, other characters talking with the players, whatever I can add. I also want to let the players receive random messages in their phones, just to make it feel more alive.
 
 About the AI, I was thinking of adding a toggle switch on the phones, some kind of "be right back", to enable de AI on the current player.
+
+## update 14
+I've reached the 100 commits...
+
+Today I've been working a little more with the dialogues. Now the players have random phrases to say when changing their names. If the previous name and the new name are the same, nothing will be said. The max length for the names has been limited to 20; or the messages won't fit on screen.
+
+I've been working in the phone messages too. Every 30 seconds one of the phones will receive a random message. Nothing important, just a little detail.
+
+I also made a few changes in the code, little fixes here and there, and finally added a thumbnail for the page, something that I always forget to do. Here is the image I used:
+
+![](media/images/thumbnail.png)
+
+I should start working on the AI. I'm not sure how smart I can make it, but I'll try my best tomorrow.

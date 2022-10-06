@@ -825,8 +825,8 @@ body {
 
 @keyframes vibration {
   0%, 100% { filter: blur(2px); }
-  10%, 30%, 50%, 70%, 90%{ transform: translateX(.1rem); }
-  20%, 40%, 60%, 80% { transform: translateX(-.1rem); }
+  10%, 30%, 50%, 70%, 90%{ transform: rotate(1deg); }
+  20%, 40%, 60%, 80% { transform: rotate(-1deg); }
 }
 
 /* for general use */

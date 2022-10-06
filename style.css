@@ -762,6 +762,21 @@ body {
   background-color: hsl(220, 50%, 70%);
 }
 
+.cell-phone-ia-toggle {
+  position: absolute;
+  top: 27%;
+  left: 1.5rem;
+  font-size: 1.5em;
+  color: #999;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto 1fr;
+}
+.cell-phone input[type="checkbox"] {
+  width: 100%;
+  height: 100%;
+}
+
 .cell-phone.player1 {
   right: 1rem;
   bottom: calc(50px - var(--phone-height));

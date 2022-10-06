@@ -22,6 +22,8 @@ const displayController = (() => {
   //phone message
   const phoneMsg = document.querySelectorAll(".cell-phone-msg");
   const phoneMsgSender = document.querySelectorAll(".cell-phone-msg-sender");
+  //phone AI activator
+  const aiCheckboxes = document.querySelectorAll(`[type="checkbox"]`);
 
   let messageCount = 0;
   let playersTalking = false;
@@ -372,7 +374,12 @@ const displayController = (() => {
     }, 500);
   };
 
-  return { startListenersAndFunctions, strikeLine, newMatch, clickCell };
+  const getAiStatus = (player) => {
+    return player === "p1" || player === true ? aiCheckboxes[0].checked : aiCheckboxes[1].checked;
+  };
+
+  return { startListenersAndFunctions, strikeLine, newMatch,
+    clickCell, getAiStatus };
 })();
 
 
@@ -508,6 +515,10 @@ const Player = (name, mark) => {
 const aI = (() => {
   const run = () => {
     setInterval(() => {
+
+      if(gameFlow.getCurrentPlayer() && !displayController.getAiStatus("p1") ||
+        !gameFlow.getCurrentPlayer() && !displayController.getAiStatus("p2") ) return
+
       let freeSpaces = [];
       gameFlow.board.forEach((c, i) => {
         if(c === 0) freeSpaces.push(i);

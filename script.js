@@ -64,8 +64,8 @@ const displayController = (() => {
     }, 30000);
   };
   
-  function clickCell() {
-    const idx = this.dataset.idx;
+  function clickCell(cell) {
+    const idx = this?.dataset?.idx || cell;
     if(gameFlow.board[idx] === 0 && gameFlow.matchStatus()){
       gameFlow.playDelay();
       gameFlow.board[idx] = gameFlow.placeMark();
@@ -79,6 +79,7 @@ const displayController = (() => {
         talk("tie");
         setTimeout(() => {
           newMatch();
+          gameFlow.playDelay(3000);
         }, 1200);
       };
     };
@@ -260,7 +261,7 @@ const displayController = (() => {
       
       const nameChange = [`Stop calling me ${previoustName}, I prefer ${currentName}.`,
       `Can you call me ${currentName} instead of ${previoustName}?`,
-      `I don't like ${currentName}, call me ${previoustName}.`];
+      `I don't like ${previoustName}, call me ${currentName}.`];
       const answer = [`Okay, ${currentName}.`, `Whatever you say, ${currentName}.`,
       "Okay.", "Okay, no problem.", `${currentName}? really? Okay, I won't laugh`,
       "As you wish.", "Yeah, why not?"];
@@ -343,17 +344,24 @@ const displayController = (() => {
 
   const randomPhoneMessage = () => {
     const messages = [
-      {sender: "Enlarge your duck!", message: "Do you want to get better at rubber ducking? Check this awesome website to know more about it."},
-      {sender: "Mom", message: "Are you guys still playing tic-tac?"},
+      {sender: "Enlarge your duck!", message: "Do you want to get better at rubberducking? Check this awesome website to know more about it."},
+      {sender: "Steve", message: "Are you guys still playing tic-tac-toe?"},
       {sender: "Nigerian Prince", message: "Dear {first_name}, it is a great pleasure to write to you this letter, which I believe..."},
       {sender: "Steve", message: "Dude, get home, let's play some Mineshaft"},
       {sender: "Candy Crunch", message: "You received 25.000 candy coins! Open the game to claim your prize."},
-      {sender: "A dolphin", message: "Wanna get rich? Download this app and discover how. Trust me."},
-      {sender: "Dad", message: "Don't forget to walk the dog when you get home."},
+      {sender: "Dolphin", message: "Wanna get rich? Download this app and discover how. Trust me."},
+      {sender: "Mom", message: "Don't forget to walk the dog when you get home."},
       {sender: "Dad", message: "Hey, champ. What is an NFT? Should I buy one? Do you like monkey drawings?"},
       {sender: "You won the lottery!", message: "Congratulations! You won 20.000.000 usd! Your phone number has been randomly chosen..."},
+      {sender: "Suzanne", message: "I heard you are a programmer. I have this crazy idea for an app..."},
+      {sender: "Suzanne", message: "Can you fix my printer?"},
+      {sender: "Rick", message: "Are those rumors about Half-Life 2: Episode 3 confirmed? Do you know something about it?"},
+      {sender: "W.W.", message: "Jesse, we need to cook. \n ___________________ \n\n Sorry, wrong number."},
+      {sender: "Isaac", message: "Do you know who ate all the donuts?"},
+      {sender: "System update available", message: "Droid v15.0.2 System Update."},
+      {sender: "Hot Shingles in your area", message: "Blistering? Curling? Mold? Check this awesome solution."},
     ];
-    const playerIdx = Math.floor(Math.random() * 2)
+    const playerIdx = Math.floor(Math.random() * 2);
     const i = Math.floor(Math.random() * messages.length);
     phoneMsgSender[playerIdx].innerText = messages[i].sender;
     phoneMsg[playerIdx].innerText = messages[i].message;
@@ -364,7 +372,7 @@ const displayController = (() => {
     }, 500);
   };
 
-  return { addListeners: startListenersAndFunctions, strikeLine, newMatch };
+  return { startListenersAndFunctions, strikeLine, newMatch, clickCell };
 })();
 
 
@@ -446,13 +454,13 @@ const gameFlow = (() => {
   const getTurns = () => turnsRemaining;
   const resetTurns = () => turnsRemaining = 9;
   const getCurrentPlayer = () => playerOneTurn;
-  const playDelay = () => {
+  const playDelay = (time) => {
     gameInProcess = false;
     setTimeout(() => {
       if(!gameOver) {
         gameInProcess = true;
       }
-    }, 500);
+    }, time || 500);
   };
 
   return {winConditions, board, swapPlayer, placeMark, getCurrentPlayer,
@@ -500,7 +508,7 @@ const Player = (name, mark) => {
 
 
 //run on start
-displayController.addListeners();
+displayController.startListenersAndFunctions();
 
 const player1 = Player("Jason", "X");
 const player2 = Player("Tom", "O");

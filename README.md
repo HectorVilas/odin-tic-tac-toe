@@ -370,3 +370,36 @@ I also made a few changes in the code, little fixes here and there, and finally 
 ![](media/images/thumbnail.png)
 
 I should start working on the AI. I'm not sure how smart I can make it, but I'll try my best tomorrow.
+
+## update 15
+Today I fixed the delay when a match ends in a tie. The players were able to start before the board is completely drawn.
+
+Then I worked with the AI, it's very basic:
+
+```javascript
+const aI = (() => {
+  const run = () => {
+    setInterval(() => {
+
+      if(gameFlow.getCurrentPlayer() && !displayController.getAiStatus("p1") ||
+        !gameFlow.getCurrentPlayer() && !displayController.getAiStatus("p2") ) return
+
+      let freeSpaces = [];
+      gameFlow.board.forEach((c, i) => {
+        if(c === 0) freeSpaces.push(i);
+      });
+      const rand = Math.floor(Math.random()*freeSpaces.length);
+      displayController.clickCell(freeSpaces[rand]);
+    }, 900);
+  };
+  return { run };
+})();
+```
+
+Once the function runs (on start), it will check for the checkboxes status on each player's phone every 900 milliseconds. If its checked, it will play for them. If it gets unchecked, the AI will stop playing for them.
+
+Oh, I also added checkboxes on each phone. First I worked in the "AI", then added the boxes and a little condition to stop it from playing if it's not enabled. After this I styled it a bit, to make it look like a phone checkbox.
+
+![](READMEmd/progress12.gif)
+
+The player 2's checkbox will be activated by default. Both players can be AI enabled, if the user just wants to see them playing. The AI only looks for empty spaces first and then plays on any of them, so it's not advanced at all. I'm not sure how can I manage to make it smart. Maybe checking lots of win conditions for each free space.

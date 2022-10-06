@@ -770,11 +770,36 @@ body {
   color: #999;
   display: grid;
   gap: 1rem;
-  grid-template-columns: auto 1fr;
-}
-.cell-phone input[type="checkbox"] {
+  grid-template-columns: 50px 1fr;
+}.cell-phone-ia-toggle label:hover {
+  color: #ccc;
+}.cell-phone input[type="checkbox"] {
+  position: relative;
   width: 100%;
   height: 100%;
+  appearance: none;
+  background-color: hsl(220, 50%, 20%);
+  border-radius: 50px;
+} .cell-phone input[type="checkbox"]::after {
+  position: absolute;
+  content: "";
+  left: 0%;
+  right: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50px;
+  border: 3px solid hsl(220, 50%, 20%);
+  box-sizing: border-box;
+  background-color: #888;
+  transition: 250ms cubic-bezier(.86,0,.07,1);
+}.cell-phone input[type="checkbox"]:hover:after {
+  background-color: #aaa;
+}.cell-phone input[type="checkbox"]:checked:after {
+  left: 50%;
+  right: 0%;
+  background-color: hsl(220, 50%, 50%);
+}.cell-phone input[type="checkbox"]:checked:hover:after {
+  background-color: hsl(220, 50%, 70%);
 }
 
 .cell-phone.player1 {

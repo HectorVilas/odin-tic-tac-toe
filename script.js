@@ -505,6 +505,20 @@ const Player = (name, mark) => {
   return { getName, getPreviousName, getMark, getScore, addScore, changeName };
 }
 
+const aI = (() => {
+  const run = () => {
+    setInterval(() => {
+      let freeSpaces = [];
+      gameFlow.board.forEach((c, i) => {
+        if(c === 0) freeSpaces.push(i);
+      });
+      const rand = Math.floor(Math.random()*freeSpaces.length);
+      displayController.clickCell(freeSpaces[rand]);
+    }, 900);
+  };
+  return { run };
+})();
+
 
 
 //run on start
@@ -514,6 +528,7 @@ const player1 = Player("Jason", "X");
 const player2 = Player("Tom", "O");
 
 displayController.newMatch();
+aI.run();
 
 //for testing
 

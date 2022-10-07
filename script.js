@@ -19,6 +19,8 @@ const displayController = (() => {
   const nameChangeTextArea = document.querySelectorAll(".new-name");
   const btnNameChangeCancel = document.querySelectorAll(".btn-new-name-cancel");
   const btnNameChangeConfirm = document.querySelectorAll(".btn-new-name-confirm");
+  const cellphones = document.querySelectorAll(".cell-phone");
+  const keychains = document.querySelectorAll(".keychain");
   //phone message
   const phoneMsg = document.querySelectorAll(".cell-phone-msg");
   const phoneMsgSender = document.querySelectorAll(".cell-phone-msg-sender");
@@ -39,6 +41,10 @@ const displayController = (() => {
     cells.forEach( cell => {
       cell.addEventListener("click", clickCell);
     });
+
+    keychains.forEach(chain => {
+      chain.addEventListener("touchstart", showPhone);
+    })
 
     nameOnPhone.forEach(n => {
       n.addEventListener("click", changeName);
@@ -383,7 +389,16 @@ const displayController = (() => {
     return player === "p1" || player === true ? aiCheckboxes[0].checked : aiCheckboxes[1].checked;
   };
 
-  return { startListenersAndFunctions, strikeLine, newMatch,
+  function showPhone(){
+    const idx = this.className.includes("player1") ? 0 : 1;
+    const otherIdx = this.className.includes("player1") ? 1 : 0;
+    cellphones[idx].classList.toggle("active");
+    if(cellphones[otherIdx].className.includes("active")){
+      cellphones[otherIdx].classList.remove("active");
+    };
+  };
+
+return { startListenersAndFunctions, strikeLine, newMatch,
     clickCell, getAiStatus };
 })();
 

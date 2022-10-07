@@ -67,6 +67,11 @@ const displayController = (() => {
   };
   
   function clickCell(cell) {
+    if(typeof cell === "object"){ //if function is called by dom
+      if(gameFlow.getCurrentPlayer() && aiCheckboxes[0].checked
+      || !gameFlow.getCurrentPlayer() && aiCheckboxes[1].checked) return;
+    };
+
     const idx = this?.dataset?.idx || cell;
     if(gameFlow.board[idx] === 0 && gameFlow.matchStatus()){
       gameFlow.playDelay();

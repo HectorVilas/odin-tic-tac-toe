@@ -802,11 +802,50 @@ body {
   background-color: hsl(220, 50%, 70%);
 }
 
+.keychain {
+  position: absolute;
+  width: 110px;
+  height: 200px;
+  bottom: -200px;
+  left: 2rem;
+}.chain {
+  position: absolute;
+}.chain img {
+  left: 0%;
+  top: 0;
+  width: 100%;
+  rotate: 180deg;
+}.logo {
+  position: absolute;
+  left: 0%;
+  scale: 75%;
+  top: 40%;
+}
+.player1 .keychain {
+  position: absolute;
+  width: 200px;
+  height: 110px;
+  bottom: 100%;
+  left: 40%;
+}.player1 .chain {
+  rotate: 180deg;
+  right: 0;
+  bottom: 0;
+}.player1 .logo {
+  position: absolute;
+  left: 15%;
+  scale: 70%;
+  top: -23%;
+  rotate: 90deg;
+}
+
+
 .cell-phone.player1 {
   right: 1rem;
   bottom: calc(50px - var(--phone-height));
   transition: bottom 350ms ease-out;
-}.cell-phone.player1:hover {
+}.cell-phone.player1:hover,
+.cell-phone.player1.active {
   bottom: 0;
   z-index: 4;
 }
@@ -814,7 +853,8 @@ body {
   left: 1rem;
   top: calc(50px - var(--phone-height));
   transition: top 350ms ease-out;
-}.cell-phone.player2:hover {
+}.cell-phone.player2:hover,
+.cell-phone.player2.active {
   top: 0;
   z-index: 4;
 }

@@ -20,8 +20,8 @@ I've been reading and watching videos about patterns and this kind of functions,
 - ✔️allow players to put in their names
 - ❌include a button to start/restart the game
 - ✔️add a display element that congratulates the winning player (it's on their speechs)
-- ❓optional - create an AI so that a player can play against the computer
-- - ❓get the computer to make a random legal move
+- ⭕optional - create an AI so that a player can play against the computer
+- - ✔️get the computer to make a random legal move
 - - ❓work on making the computer smart
 
 ## Roadmap
@@ -403,3 +403,12 @@ Oh, I also added checkboxes on each phone. First I worked in the "AI", then adde
 ![](READMEmd/progress12.gif)
 
 The player 2's checkbox will be activated by default. Both players can be AI enabled, if the user just wants to see them playing. The AI only looks for empty spaces first and then plays on any of them, so it's not advanced at all. I'm not sure how can I manage to make it smart. Maybe checking lots of win conditions for each free space.
+
+## update 16
+Today I managed to stop players from clicking on the board if the AI is the one playing. Then I spent some time with InkScape to draw the next items:
+
+![](media/images/keychain-1.svg) ![](media/images/logo-css3.svg) ![](media/images/keychain-2.svg) ![](media/images/logo-js.svg)
+
+Now the phones have keychains, and those can be touched on touchscreens to reveal or hide the phones. A click won't do anything, `:hover` will still work as espected.
+
+Now I need to come with an idea to represent a reset button and, optional, make the AI a little smart.

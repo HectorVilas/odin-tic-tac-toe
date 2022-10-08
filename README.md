@@ -1,3 +1,5 @@
+![](preview.png)
+
 # odin-tic-tac-toe
 
 # Live: https://hectorvilas.github.io/odin-tic-tac-toe/
@@ -18,11 +20,11 @@ I've been reading and watching videos about patterns and this kind of functions,
 - ✔️functions to allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker
 - ✔️build the logic that checks for when the game is over
 - ✔️allow players to put in their names
-- ❌include a button to start/restart the game
+- ~~include a button to start/restart the game~~ left out by design
 - ✔️add a display element that congratulates the winning player (it's on their speechs)
-- ⭕optional - create an AI so that a player can play against the computer
+- ✔️optional - create an AI so that a player can play against the computer
 - - ✔️get the computer to make a random legal move
-- - ❓work on making the computer smart
+- - ✔️work on making the computer smart
 
 ## Roadmap
 
@@ -35,7 +37,7 @@ The page:
 - - ✔️made with grid
 - - ~~size adjusted by viewport~~ (static values has been used for aesthetics)
 - - ✔️9 `div`s autofilling the cells
-- ❌a reset button
+- ~~a reset button~~ left out by design
 
 The code:
 
@@ -412,3 +414,31 @@ Today I managed to stop players from clicking on the board if the AI is the one 
 Now the phones have keychains, and those can be touched on touchscreens to reveal or hide the phones. A click won't do anything, `:hover` will still work as espected.
 
 Now I need to come with an idea to represent a reset button and, optional, make the AI a little smart.
+
+## update 17
+Today I got stuck thinking on a way to make the AI a little smart, so I searched info about Tic-Tac-Toe and it's methods. I Found [this article](https://blog.ostermiller.org/tic-tac-toe-strategy/) and found out about the patterns for a good play (Didn't read the professional ones), so I came with an idea: "weights" for the AI decisions. I just added a bigger chance to the best spaces for plays on the board and, in case of the other player starting in the center, bigger weigts for the corners, for a "counter-attack".
+
+Now the AI plays a little better, but still aimlessly, so once again I had to come with a way to let it read the board.
+
+After watching the ceiling for a few minutes, I came with what I consider a neat idea that could get rid of lots of `if`s:
+
+```javascript
+const validLines = [
+  [0,1,2], [3,4,5], [6,7,8], //horizontal
+  [0,3,6], [1,4,7], [2,5,8], //vertical
+  [0,4,8], [2,4,6], //diagonal
+];
+```
+
+How it works? It's a list of spaces where the player can make a line. So, before starting, those positions will be check. If there's 2 identical symbols and a free space, it will be added to another array (including the `validLines`' index), then randomly one of those posibilities will be chosen and the AI will pick the only free space on it (this is why I stored the `validLines`' index).
+
+Now the AI will "scan" the board for possible winnings and pick one of those to block or complete. I could make the AI go for the completion first, but I prefer the randomness, or the game wouldn't be beatable at all.
+
+# final thoughts
+I find it so crazy how I managed to go from something very simple to this. Animated hands drawing lines, characters with variants in dialogues, [context sensitive](https://youtu.be/ujDIU7HPdHc?t=24)... and a freaking artificial inteligence! Okay, a pretty basic AI, but this is the first time I make something like this.
+
+So... this is it! The day I start making a portfolio I'll make sure to include this little game, hoping for extra points of motivations when a recruiter sees my work, or at least get them to enjoy it a little.
+
+I had a few other ideas, events mostly, so I may come back to this project to apply them.
+
+**Se you in my next project!**

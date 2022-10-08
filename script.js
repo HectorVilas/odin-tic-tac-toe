@@ -555,7 +555,36 @@ const aI = (() => {
           };
         };
       });
-      // console.log(freeSpaces);
+      //block or finish line
+      const validLines = [
+        [0,1,2], [3,4,5], [6,7,8], //horizontal
+        [0,3,6], [1,4,7], [2,5,8], //vertical
+        [0,4,8], [2,4,6], //diagonal
+      ];
+      let toCompleteLines = [];
+      validLines.forEach((line, i) => {
+        let thisLine = [];
+        for(idx = 0; idx < 3; idx++){
+          thisLine.push(gameFlow.board[line[idx]]);
+        };
+        if(thisLine.includes(0) &&
+        (thisLine.includes("X") && !thisLine.includes("O") ||
+        thisLine.includes("O") && !thisLine.includes("X"))){
+          let symbolCount = 0;
+          thisLine.forEach(cell => { if(cell !== 0) symbolCount++ });
+          if(symbolCount === 2) toCompleteLines.push({i, thisLine});
+        };
+      });
+      if(toCompleteLines.length > 0){
+        let rand = Math.floor(Math.random() * toCompleteLines.length);
+// console.log(toCompleteLines[rand]);
+        toCompleteLines[rand].thisLine.forEach((c, cIdx) => {
+          if(c === 0){
+            freeSpaces = [validLines[toCompleteLines[rand].i][cIdx]];
+          };
+        });
+      };
+// console.log(freeSpaces, "----------------------");
       const rand = Math.floor(Math.random()*freeSpaces.length);
       displayController.clickCell(freeSpaces[rand]);
     }, 900);

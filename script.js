@@ -540,9 +540,22 @@ const aI = (() => {
         !gameFlow.getCurrentPlayer() && !displayController.getAiStatus("p2") ) return
 
       let freeSpaces = [];
-      gameFlow.board.forEach((c, i) => {
-        if(c === 0) freeSpaces.push(i);
+      gameFlow.board.forEach((cell, i) => {
+        if(cell === 0) {
+          let weight = 1;
+          //more chances for most valuable cells
+          if(i%2 === 0) weight++; //corners and center
+          if(i === 4) weight++; //center
+          //more weight for corners if center is occupied on first play
+          if(i%2 === 0 && gameFlow.board[4] !== 0
+            && gameFlow.getTurns === 8) weight += 3;
+
+          for(let idx = 0; idx < weight; idx++){
+            freeSpaces.push(i);
+          };
+        };
       });
+      // console.log(freeSpaces);
       const rand = Math.floor(Math.random()*freeSpaces.length);
       displayController.clickCell(freeSpaces[rand]);
     }, 900);

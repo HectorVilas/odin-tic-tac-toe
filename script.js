@@ -416,7 +416,9 @@ const gameFlow = (() => {
     [0,4,8], [2,4,6], //diagonal
   ];
   function swapPlayer(){
-    playerOneTurn = !playerOneTurn;
+    setTimeout(() => {
+      playerOneTurn = !playerOneTurn;
+    }, 100);
   }
   function placeMark(){
     if(playerOneTurn) {
@@ -449,8 +451,8 @@ const gameFlow = (() => {
       const ThreeEqualMarks = gameFlow.getCurrentPlayer() ?
       cellsOnBoard.every(c => c == "X") : cellsOnBoard.every(c => c == "O");
 
-      if(noEmptyCells && ThreeEqualMarks && !gameOver){
-        winGame(strikeLines[lineIdx]);
+      if(noEmptyCells && ThreeEqualMarks){
+        if(!gameOver) winGame(strikeLines[lineIdx]);
         wonGame = true;
       };
     });

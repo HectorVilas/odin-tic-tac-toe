@@ -228,7 +228,7 @@ const displayController = (() => {
     //no more free spaces, a tie
     } else if(action === "tie"){
       let i = Math.floor(Math.random()*noMoreTurns.length);
-      createCard(!gameFlow.getCurrentPlayer(), noMoreTurns[i]);
+      createCard(gameFlow.getCurrentPlayer(), noMoreTurns[i]);
     //regular play, no tie or win
     } else if(action === "played" && gameFlow.getTurns() !== 0){
       let i = Math.floor(Math.random()*played.length);

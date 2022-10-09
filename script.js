@@ -437,33 +437,24 @@ const gameFlow = (() => {
   };
   const matchStatus = () => gameInProcess;
   function winConditions(){
-    if(board[0] === board[1] && board[1] === board[2] && board[0] !== 0){
-      if(!gameOver) winGame("h1");
-      return true;
-    } else if(board[3] === board[4] && board[4] === board[5] && board[3] !== 0){
-      if(!gameOver) winGame("h2");
-      return true;
-    } else if(board[6] === board[7] && board[7] === board[8] && board[6] !== 0){
-      if(!gameOver) winGame("h3");
-      return true;
-    } else if(board[0] === board[3] && board[3] === board[6] && board[0] !== 0){
-      if(!gameOver) winGame("v1");
-      return true;
-    } else if(board[1] === board[4] && board[4] === board[7] && board[1] !== 0){
-      if(!gameOver) winGame("v2");
-      return true;
-    } else if(board[2] === board[5] && board[5] === board[8] && board[2] !== 0){
-      if(!gameOver) winGame("v3");
-      return true;
-    } else if(board[0] === board[4] && board[4] === board[8] && board[0] !== 0){
-      if(!gameOver) winGame("d1");
-      return true;
-    } else if(board[2] === board[4] && board[4] === board[6] && board[2] !== 0){
-      if(!gameOver) winGame("d2");
-      return true;
-    } else {
-      return false;
-    };
+    let wonGame = false;
+    const strikeLines = [
+      "h1", "h2", "h3", //horizontal
+      "v1", "v2", "v3", //vertical
+      "d1", "d2", //diagonal
+    ];
+    validLines.forEach((line, lineIdx) => {
+      const cellsOnBoard = [board[line[0]], board[line[1]], board[line[2]]];
+      const noEmptyCells = !cellsOnBoard.includes(0);
+      const ThreeEqualMarks = gameFlow.getCurrentPlayer() ?
+      cellsOnBoard.every(c => c == "X") : cellsOnBoard.every(c => c == "O");
+
+      if(noEmptyCells && ThreeEqualMarks && !gameOver){
+        winGame(strikeLines[lineIdx]);
+        wonGame = true;
+      };
+    });
+    return wonGame;
   };
 
   function winGame(pos){

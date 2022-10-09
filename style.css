@@ -14,7 +14,9 @@
   --hand-player-1-rest-y: 100vmax;
   --hand-player-2-rest-x: 0%;
   --hand-player-2-rest-y: -100vmax;
-  --phone-height: 700px;
+  --phone-height: 80vh;
+  /* --phone-width: calc(var(--phone-height) / 1.75); */
+  --phone-width: 400px;
 }
 
 html,
@@ -641,7 +643,8 @@ body {
   position: absolute;
   isolation: isolate;
   height: var(--phone-height);
-  width: calc(var(--phone-height) / 1.75);
+  min-height: 500px;
+  width: var(--phone-width);
   border-radius: var(--border-radius);
   background-color: var(--clr-phone);
   box-shadow:
@@ -700,16 +703,17 @@ body {
   padding: 0;
   margin: 0;
 }
-.cell-phone-time {
+.cell-phone .cell-phone-time {
   position: absolute;
-  top: 30%;
+  top: 45%;
+  font-size: 3em;
 }
 .cell-phone-screen > p,
 .cell-phone-screen input {
   margin-top: auto;
-  margin-bottom: 20%;
+  margin-bottom: 10%;
   text-align: center;
-  font-size: 5rem;
+  font-size: 4rem;
   color: #aaa;
   font-family: monospace, 'Courier New', Courier;
 } .cell-phone-name:hover {
@@ -764,7 +768,8 @@ body {
 
 .cell-phone-ia-toggle {
   position: absolute;
-  top: 27%;
+  /* top: 27%; */
+  top: 200px;
   left: 1.5rem;
   font-size: 1.5em;
   color: #999;

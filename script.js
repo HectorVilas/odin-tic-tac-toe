@@ -410,7 +410,11 @@ const gameFlow = (() => {
   let turnsRemaining = 9;
   let gameOver = false;
   let board = new Array(9).fill(0);
-
+  const validLines = [
+    [0,1,2], [3,4,5], [6,7,8], //horizontal
+    [0,3,6], [1,4,7], [2,5,8], //vertical
+    [0,4,8], [2,4,6], //diagonal
+  ];
   function swapPlayer(){
     playerOneTurn = !playerOneTurn;
   }
@@ -481,6 +485,7 @@ const gameFlow = (() => {
   const getTurns = () => turnsRemaining;
   const resetTurns = () => turnsRemaining = 9;
   const getCurrentPlayer = () => playerOneTurn;
+  const getValidLines = () => validLines;
   const playDelay = (time) => {
     gameInProcess = false;
     setTimeout(() => {
@@ -492,7 +497,7 @@ const gameFlow = (() => {
 
   return {winConditions, board, swapPlayer, placeMark, getCurrentPlayer,
     matchStart, matchStatus, turnsMinusOne, getTurns, resetTurns,
-    playDelay};
+    playDelay, getValidLines};
 })()
 
 
@@ -556,11 +561,7 @@ const aI = (() => {
         };
       });
       //block or finish line
-      const validLines = [
-        [0,1,2], [3,4,5], [6,7,8], //horizontal
-        [0,3,6], [1,4,7], [2,5,8], //vertical
-        [0,4,8], [2,4,6], //diagonal
-      ];
+      const validLines = gameFlow.getValidLines();
       let toCompleteLines = [];
       validLines.forEach((line, i) => {
         let thisLine = [];

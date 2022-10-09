@@ -442,3 +442,37 @@ So... this is it! The day I start making a portfolio I'll make sure to include t
 I had a few other ideas, events mostly, so I may come back to this project to apply them.
 
 **Se you in my next project!**
+
+## update 18
+Wasn't the project finished? Yes, but actually no. I shared the project on The Odin Project's Discord and got feedback, so I came back to make some fixes.
+
+First I added the missing `maxlength` for the first player's name. Then adjusted some values for the phones' size. Now they have a minimum height of 500px and `80vh` for max value. The phone now will always be toggleable, without the touchable keychains going offscreen too easy.
+
+Another big change was on the winning condition. It had a chain of `if`s, I was told it was bad practice (also it's harder to understand) so I refactored it using the same array in the last code snippet on this README.md and this is how it looks now:
+
+```javascript
+function winConditions(){
+  let wonGame = false;
+  const strikeLines = [
+    "h1", "h2", "h3", //horizontal
+    "v1", "v2", "v3", //vertical
+    "d1", "d2", //diagonal
+  ];
+  validLines.forEach((line, lineIdx) => {
+    const cellsOnBoard = [board[line[0]], board[line[1]], board[line[2]]];
+    const noEmptyCells = !cellsOnBoard.includes(0);
+    const ThreeEqualMarks = gameFlow.getCurrentPlayer() ?
+    cellsOnBoard.every(c => c == "X") : cellsOnBoard.every(c => c == "O");
+
+    if(noEmptyCells && ThreeEqualMarks){
+      if(!gameOver) winGame(strikeLines[lineIdx]);
+      wonGame = true;
+    };
+  });
+  return wonGame;
+};
+```
+
+I think it's easier to read now. I've been reading and watching videos about self documenting code and learned some neat ways to make it easy to understand. Of course, I could make more changes in the code with this new knowledge, but it will take too long to do, so this will be (maybe) the last project using comments to describe the code.
+
+After this little change, the game was giving double score and ignoring the win condition when the last space was played, making it a win and a tie at the same time. The fix was easy, and a delay has been added to the player turn swap to prevent future errors.

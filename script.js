@@ -26,6 +26,7 @@ const displayController = (() => {
   const phoneMsgSender = document.querySelectorAll(".cell-phone-msg-sender");
   //phone AI activator
   const aiCheckboxes = document.querySelectorAll(`[type="checkbox"]`);
+  const aiSliders = document.querySelectorAll(`[type="range"]`);
 
   let messageCount = 0;
   let playersTalking = false;
@@ -70,6 +71,14 @@ const displayController = (() => {
     setInterval(() => {
       randomPhoneMessage();
     }, 30000);
+
+    aiCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener("click", changeAiCheckbox);
+    });
+
+    aiSliders.forEach(slider => {
+      slider.addEventListener("change", changeAiLevel);
+    });
   };
   
   function clickCell(cell) {
@@ -398,8 +407,24 @@ const displayController = (() => {
     };
   };
 
+  function changeAiCheckbox(){
+    let i = this.id === "ai1" ? 0 : 1;
+    this.checked ? aiSliders[i].removeAttribute("disabled")
+    : aiSliders[i].setAttribute("disabled","");
+  };
+  
+  function changeAiLevel(){
+    const newValue = parseInt(this.value);
+    this.id === "ai1-level" ? player1.setAiLevel(newValue)
+    : player2.setAiLevel(newValue);
+  }
+
+  function getSliderValue(player){
+    i = player === "p1" ? 0 : 1;
+    return parseInt(aiSliders[i].value);
+  }
 return { startListenersAndFunctions, strikeLine, newMatch,
-    clickCell, getAiStatus };
+    clickCell, getAiStatus, getSliderValue };
 })();
 
 
@@ -516,18 +541,22 @@ const sound = (() => {
 const Player = (name, mark) => {
   let score = 0;
   let previousName = name;
+  let aiLevel = 80;
 
   const getName = () => name ;
   const getPreviousName = () => previousName ;
   const getMark = () => mark;
   const getScore = () => score;
   const addScore = () => ++score;
+  const getAiLevel = () => aiLevel;
+  const setAiLevel = (n) => aiLevel = n;
   const changeName = (newName) => {
     previousName = name;
     name = newName;
   };
 
-  return { getName, getPreviousName, getMark, getScore, addScore, changeName };
+  return { getName, getPreviousName, getMark, getScore, addScore,
+    changeName, getAiLevel, setAiLevel };
 }
 
 const aI = (() => {
@@ -571,9 +600,12 @@ const aI = (() => {
       });
       if(toCompleteLines.length > 0){
         let rand = Math.floor(Math.random() * toCompleteLines.length);
-// console.log(toCompleteLines[rand]);
         toCompleteLines[rand].thisLine.forEach((c, cIdx) => {
-          if(c === 0){
+          const chance = Math.floor(Math.random() * 100);
+          const playerWit = gameFlow.getCurrentPlayer() ? player1.getAiLevel() : player2.getAiLevel();
+          const willNotice = chance <= playerWit;
+          const emptyCell = c === 0;
+          if(emptyCell && willNotice){
             freeSpaces = [validLines[toCompleteLines[rand].i][cIdx]];
           };
         });
@@ -593,6 +625,9 @@ displayController.startListenersAndFunctions();
 
 const player1 = Player("Jason", "X");
 const player2 = Player("Tom", "O");
+
+player1.setAiLevel(displayController.getSliderValue("p1"));
+player2.setAiLevel(displayController.getSliderValue("p2"));
 
 displayController.newMatch();
 aI.run();

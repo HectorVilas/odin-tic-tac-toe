@@ -711,7 +711,7 @@ body {
 .cell-phone-screen > p,
 .cell-phone-screen input {
   margin-top: auto;
-  margin-bottom: 10%;
+  /* margin-bottom: 10%; */
   text-align: center;
   font-size: 4rem;
   color: #aaa;
@@ -768,14 +768,15 @@ body {
 
 .cell-phone-ai-toggle {
   position: absolute;
-  /* top: 27%; */
   top: 200px;
   left: 1.5rem;
+  height: 10px;
   font-size: 1.5em;
   color: #999;
   display: grid;
   gap: 1rem;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 50px 1fr 2fr;
+  align-items: center;
 }.cell-phone-ai-toggle label:hover {
   color: #ccc;
 }.cell-phone input[type="checkbox"] {
@@ -805,6 +806,11 @@ body {
   background-color: hsl(220, 50%, 50%);
 }.cell-phone input[type="checkbox"]:checked:hover:after {
   background-color: hsl(220, 50%, 70%);
+}
+.cell-phone input[type="range"] {
+  align-self: end;
+  width: 80%;
+  height: 20px;
 }
 
 .keychain {

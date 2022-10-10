@@ -577,14 +577,15 @@ const aI = (() => {
           if(i%2 === 0 && gameFlow.board[4] !== 0
             && gameFlow.getTurns === 8) weight += 3;
 
-          for(let idx = 0; idx < weight; idx++){
-            freeSpaces.push(i);
+            for(let idx = 0; idx < weight; idx++){
+              freeSpaces.push(i);
+            };
           };
-        };
-      });
-      //block or finish line
-      const validLines = gameFlow.getValidLines();
-      let toCompleteLines = [];
+        });
+        //block or finish line
+        const validLines = gameFlow.getValidLines();
+        let toCompleteLines = [];
+        let toWinLine = [];
       validLines.forEach((line, i) => {
         let thisLine = [];
         for(idx = 0; idx < 3; idx++){
@@ -595,7 +596,14 @@ const aI = (() => {
         thisLine.includes("O") && !thisLine.includes("X"))){
           let symbolCount = 0;
           thisLine.forEach(cell => { if(cell !== 0) symbolCount++ });
-          if(symbolCount === 2) toCompleteLines.push({i, thisLine});
+          if(symbolCount === 2) {
+            toCompleteLines.push({i, thisLine});
+            //add lines that only gets a win
+            if(gameFlow.getCurrentPlayer() && thisLine.includes("X") && !thisLine.includes("O")
+            || !gameFlow.getCurrentPlayer() && thisLine.includes("O") && !thisLine.includes("X")){
+              toWinLine.push({i, thisLine});
+            }
+          };
         };
       });
       if(toCompleteLines.length > 0){
@@ -606,11 +614,16 @@ const aI = (() => {
           const willNotice = chance <= playerWit;
           const emptyCell = c === 0;
           if(emptyCell && willNotice){
-            freeSpaces = [validLines[toCompleteLines[rand].i][cIdx]];
+            //play with the winning line, or add a rival line to block
+            if(toWinLine.length > 0){
+              freeSpaces = [validLines[toWinLine[0].i][cIdx]];
+              console.log(gameFlow.getCurrentPlayer() ? "p1" : "p2", "using win line on cell index", validLines[toWinLine[0].i][cIdx]);
+            } else {
+              freeSpaces = [validLines[toCompleteLines[rand].i][cIdx]];
+            };
           };
         });
       };
-// console.log(freeSpaces, "----------------------");
       const rand = Math.floor(Math.random()*freeSpaces.length);
       displayController.clickCell(freeSpaces[rand]);
     }, 900);

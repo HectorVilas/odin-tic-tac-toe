@@ -476,3 +476,30 @@ function winConditions(){
 I think it's easier to read now. I've been reading and watching videos about self documenting code and learned some neat ways to make it easy to understand. Of course, I could make more changes in the code with this new knowledge, but it will take too long to do, so this will be (maybe) the last project using comments to describe the code.
 
 After this little change, the game was giving double score and ignoring the win condition when the last space was played, making it a win and a tie at the same time. The fix was easy, and a delay has been added to the player turn swap to prevent future errors.
+
+## update 19
+Today I worked with the AI. First, I renamed the classes including IA (initials on spanish) to AI for consistency. Then, on each phone, I added a slider that will be interactable if the AI is enabled. It have 5 positions with steps of 20, and each position will define the chances of the AI to notice a line.
+
+After this, I made the AI prefer to complete its own lines instead of blocking the other player's ones. It works, but not always. There's a little chance the AI will try to play in the wrong cell, and after 2 or 3 tries it will go for the correct one and I have no idea how it manage to fix itself.
+
+Let's say we have this, and it's `X`'s turn:
+
+<table>
+  <tr>
+    <td>O</td><td>O</td><td>X</td>
+  </tr>
+  <tr>
+    <td>X</td><td>X</td><td>O</td>
+  </tr>
+  <tr>
+    <td> </td><td>O</td><td>X</td>
+  </tr>
+</table>
+
+The AI instead of going for the empty space, will try to place an `X` at the top right. After failing 2 or 3 times (it varies), it will suddenly notice the free space and finally complete the diagonal line.
+
+I never programmed anything to do this kind of verification (Skynet, is that you?). First I suspected the `setTimeout`s was responsable of this, making this decision for the other player in the wrong turn, but the turn won't change until a mark is placed by the player or the AI, and this decision happens before placing the mark.
+
+Anyway, I left a `console.log()` so it wil throw a message when a player finds a line to complete and win. The user can see here this glitch in action.
+
+As the game doesn't end in a softlock, I'm leaving it like this. If I find out it gets softlocked, I'll try to rewrite part of the AI's code.

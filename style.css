@@ -766,7 +766,7 @@ body {
   background-color: hsl(220, 50%, 70%);
 }
 
-.cell-phone-ia-toggle {
+.cell-phone-ai-toggle {
   position: absolute;
   /* top: 27%; */
   top: 200px;
@@ -776,7 +776,7 @@ body {
   display: grid;
   gap: 1rem;
   grid-template-columns: 50px 1fr;
-}.cell-phone-ia-toggle label:hover {
+}.cell-phone-ai-toggle label:hover {
   color: #ccc;
 }.cell-phone input[type="checkbox"] {
   position: relative;

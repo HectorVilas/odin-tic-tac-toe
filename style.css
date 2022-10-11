@@ -885,6 +885,21 @@ body {
   display: none;
 }
 
+@media screen and (max-height: 800px) {
+  :root {
+    --paper-bg:
+    radial-gradient(at top left,
+      rgba(212, 226, 173, 0.05),
+      rgba(231, 236, 185, 0.25)
+    ),
+    url(./media/images/paper-textured-background.jpg);
+    --phone-height: 600px;
+  }
+  body {
+    height: 800px;
+    overflow-y: scroll;
+  }
+}
 
 
 /* for testing */

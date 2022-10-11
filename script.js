@@ -208,7 +208,8 @@ const displayController = (() => {
     const win = ["Aw, yeah.", `Take that, ${theOtherPlayerName}!`, "Hahaaa!",
     "Hahahaha!", `In yor face, ${theOtherPlayerName}!`, "That was easy.",
     "Heh!", "You know how to play, right?", "See? This is how you play.",
-    `You need more practice, ${theOtherPlayerName}`, "Get rekt!"];
+    `You need more practice, ${theOtherPlayerName}`, "Get rekt!",
+    `${theOtherPlayerName}, ${theOtherPlayerName}, ${theOtherPlayerName}...`];
     const loserAnswer = [`Oh, screw you, ${currentPlayerName}.`,
     "Time to get serious.", "Now I'm mad.", "Come on, really?",
     `You got lucky, ${currentPlayerName}.`, "Go suck a lemon.",
@@ -216,6 +217,17 @@ const displayController = (() => {
     const center = ["Getting the center, huh?", "Come on, That's cheating!",
     "Center, huh?", "Center start is for losers.", "Desperate for win?",
     "Somebody doesn't want to lose."];
+    const lineDrawMock = ["Those lines can't be more crooked.",
+    "Those lines are barely paralel."];
+    const lineDrawAnswer = [`oh, shut up, ${player2.getName()}.`,
+    "next time you draw them.", "Wabi-sabi, my friend."];
+    const askScores = ["What are the scores?", "Scores?", "Who is winning?",
+    `${player1.getScore()} vs ${player2.getScore()}; right?`,];
+    const askScoresCheck = ["Let me check.", "Checking.", "Let's see..."];
+    const askScoresAnswer = [
+      `${player2.getScore()} vs ${player1.getScore()}. ${player2.getScore() > player1.getScore() ? "I'm winning" : player1.getScore() > player2.getScore() ? "You are winning." : "Same score."}`,
+      `${player2.getScore()} me, ${player1.getScore()} you. ${player2.getScore() > player1.getScore() ? "I'm winning, naturally." : player1.getScore() > player2.getScore() ? "You lucky son of a gun." : "It's a tie."}`
+    ];
 
     //prevent new dialogues until current event ends
     if(playersTalking) return;
@@ -234,23 +246,25 @@ const displayController = (() => {
       setTimeout(() => {
         createCard(theOtherPlayer, loserAnswer[j]);
       }, 1000);
-    //no more free spaces, a tie
+      //no more free spaces, a tie
     } else if(action === "tie"){
       let i = Math.floor(Math.random()*noMoreTurns.length);
       createCard(gameFlow.getCurrentPlayer(), noMoreTurns[i]);
-    //regular play, no tie or win
+      //regular play, no tie or win
     } else if(action === "played" && gameFlow.getTurns() !== 0){
       let i = Math.floor(Math.random()*played.length);
       createCard(gameFlow.getCurrentPlayer(), played[i]);
-    
-    //dialogues for special events, won't let the others play until finished
-    //on each new game
+      
+      //dialogues for special events, won't let the others play until finished
+      //on each new game
     } else if (action === "new game" && chance < 10){
       playersTalking = true;
       setTimeout(() => {
-        createCard("p2", "Those lines can't be more crooked.");
+        let i = Math.floor(Math.random()*lineDrawMock.length);
+        createCard("p2", lineDrawMock[i]);
         setTimeout(() => {
-          createCard("p1", `oh, shut up, ${player2.getName()}.`);
+          let i = Math.floor(Math.random()*lineDrawAnswer.length);
+          createCard("p1", lineDrawAnswer[i]);
           playersTalking = false;
         }, 1500);
       }, 1000);
@@ -259,13 +273,16 @@ const displayController = (() => {
     && (player1.getScore() > 1 || player2.getScore() > 1)){
       setTimeout(() => {
         playersTalking = true;
-        createCard("p1", "What are the scores?");
+        let i = Math.floor(Math.random()*askScores.length);
+        createCard("p1", askScores[i]);
         setTimeout(() => {
-          createCard("p2", "Let me check...");
+          let i = Math.floor(Math.random()*askScoresCheck.length);
+          createCard("p2", askScoresCheck[i]);
           setTimeout(() => {
             sound.paper();
             setTimeout(() => {
-              createCard("p2", `${player2.getScore()} me, ${player1.getScore()} you. ${player2.getScore() > player1.getScore() ? "I'm winning" : player1.getScore() > player2.getScore() ? "You are winning." : "Same score."}`);
+              let i = Math.floor(Math.random()*askScoresAnswer.length);
+              createCard("p2", askScoresAnswer[i]);
               setTimeout(() => {
                 playersTalking = false;
               }, 1000);
@@ -373,7 +390,10 @@ const displayController = (() => {
       {sender: "Candy Crunch", message: "You received 25.000 candy coins! Open the game to claim your prize."},
       {sender: "Dolphin", message: "Wanna get rich? Download this app and discover how. Trust me."},
       {sender: "Mom", message: "Don't forget to walk the dog when you get home."},
-      {sender: "Dad", message: "Hey, champ. What is an NFT? Should I buy one? Do you like monkey drawings?"},
+      {sender: "Dad", message: "Hey, champ. What is an NFT? Should I buy one? Do you like monkeys?"},
+      {sender: "Little bro", message: "why do dogs have cold noses?"},
+      {sender: "Little bro", message: "i just delet sistem32 from your computer to make it faster. Dont need to thank me"},
+      {sender: "Little bro", message: "th cat just threw up in you're bed"},
       {sender: "You won the lottery!", message: "Congratulations! You won 20.000.000 usd! Your phone number has been randomly chosen..."},
       {sender: "Suzanne", message: "I heard you are a programmer. I have this crazy idea for an app..."},
       {sender: "Suzanne", message: "Can you fix my printer?"},

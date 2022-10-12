@@ -503,3 +503,17 @@ I never programmed anything to do this kind of verification (Skynet, is that you
 Anyway, I left a `console.log()` so it wil throw a message when a player finds a line to complete and win. The user can see here this glitch in action.
 
 As the game doesn't end in a softlock, I'm leaving it like this. If I find out it gets softlocked, I'll try to rewrite part of the AI's code.
+
+## update 20
+I've been adding new dialogues and a little responsiveness to the page (overflow visible if the screen is too small vertically and min/max width for phones, so it won't look very long on resolutions bigger than 1080p). Then I worked in a new random event with 5% chance to happen:
+
+![](media/images/spider.svg)
+
+This little guy will run all over the notebook and the kids will panic a little, with new dialogues during the event. I just wanted to add another little detail, just to make the player laugh a bit. It took me more time that I want to admit to implement, but everything is working fine.
+
+### thoughts:
+I could add more events to the game, but for now it will stay like this. It's pretty much complete, and whatever I add next will be just little details that won't change the game that much (like the spider event).
+
+This project took me almost a month to make, so it's time to move on and keep learning from The Odin Project. It was supossed to be a short practice, but I decided to make it much, much more complex.
+
+In case I come back to it, I may change the spider for a roach, with the spider being optional. Just a reminder for myself.

@@ -644,7 +644,8 @@ body {
   isolation: isolate;
   height: var(--phone-height);
   min-height: 500px;
-  width: var(--phone-width);
+  max-width: var(--phone-width);
+  min-width: calc(var(--phone-height) / 1.75);
   border-radius: var(--border-radius);
   background-color: var(--clr-phone);
   box-shadow:

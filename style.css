@@ -885,6 +885,7 @@ body {
   display: none;
 }
 
+/* others */
 @media screen and (max-height: 800px) {
   :root {
     --paper-bg:
@@ -901,6 +902,39 @@ body {
   }
 }
 
+.spider {
+  position: absolute;
+  left: -100vmax;
+  top: -100vmax;
+  width: 150px;
+  height: auto;
+}
+.spider.animate {
+  animation: spider-path 15s linear 3s, spider-run 100ms step-end infinite;
+}
+@keyframes spider-path {
+  0% {top: 50%; left: -50%; rotate: 90deg; }
+  10% {top: 50%; left: 150%; rotate: 90deg; }
+  20% {top: -50%; left: 150%; rotate: 205deg;}
+  25% {top: -50%; left: 100%; rotate: 205deg;}
+  30% {top: 150%; left: 0%; rotate: 205deg;}
+  35% {top: 150%; left: -150%; rotate: 60deg;}
+  40% {top: 150%; left: -150%; rotate: 60deg;}
+  50% {top: -50%; left: 150%; rotate: 60deg;}
+  51% {rotate: 210deg}
+  60% {top: 50%; left: 70%; rotate: 230deg;}
+  63% {top: 150%; left: -100%; rotate: 270deg;}
+  64% { rotate: 45deg;}
+  65% { rotate: 45deg;}
+  75% {top: -100%; left: 150%; rotate: 45deg;}
+  78% {top: -100%; left: 100%; rotate: 200deg;}
+  79% {rotate: 200deg;}
+  85%, 100% {top: 150%; left: 50%; rotate: 200deg;}
+}
+@keyframes spider-run {
+  0%, 100% { transform: scaleX(1);}
+  50% {transform: scaleX(-1);}
+}
 
 /* for testing */
 ** {

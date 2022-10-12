@@ -10,6 +10,7 @@ const displayController = (() => {
   const handP1 = document.querySelector(".hand.player1");
   const handP2 = document.querySelector(".hand.player2");
   const pageTurn = document.querySelector(".page-turn");
+  const spider = document.querySelector(".spider");
   //phone related
   const cellPhone = document.querySelectorAll(".cell-phone");
   const messages = document.querySelectorAll(".messages");
@@ -225,7 +226,7 @@ const displayController = (() => {
     `${player1.getScore()} vs ${player2.getScore()}; right?`,];
     const askScoresCheck = ["Let me check.", "Checking.", "Let's see..."];
     const askScoresAnswer = [
-      `${player2.getScore()} vs ${player1.getScore()}. ${player2.getScore() > player1.getScore() ? "I'm winning" : player1.getScore() > player2.getScore() ? "You are winning." : "Same score."}`,
+      `${player2.getScore()} vs ${player1.getScore()}; ${player2.getScore() > player1.getScore() ? "I'm winning" : player1.getScore() > player2.getScore() ? "You are winning." : "Same score."}`,
       `${player2.getScore()} me, ${player1.getScore()} you. ${player2.getScore() > player1.getScore() ? "I'm winning, naturally." : player1.getScore() > player2.getScore() ? "You lucky son of a gun." : "It's a tie."}`
     ];
 
@@ -290,6 +291,38 @@ const displayController = (() => {
           }, 1000);
         }, 1500);
       }, 1000);
+    } else if(action == "new game" && chance > 30 && chance <= 35){
+      gameFlow.blockGameInSeconds(15);
+      playersTalking = true;
+      spider.classList.add("animate");
+      setTimeout(() => {
+        spider.classList.remove("animate");
+      }, 15000);
+      let player = "p1";
+      const spiderPAnic = ["Spider!", "SPIDER!", "A spider!", "Kill it with fire!",
+      "Kill it, kill it!", "Where has it go?", "AAAAAAAAAGH!", "Where is it?!",
+      "Everybody panic!", "It's back!", "Squish it!", "Spider on the notebook!",
+      "It's coming right for us!", "Little bastard!", "S-spider!",
+      "Don't let it smell your fear..."];
+      const spiderGone = ["It's gone. Let's continue.",
+      "It left, but where is it? Let's play.",
+      "It will come back, I know it. Let's continue.",
+      "It's gone, damn creepy crawler. Let's play."];
+      for(let i = 0; i < 25; i++){
+        setTimeout(() => { //panic delay
+          setTimeout(() => { //dialogues
+            if(i < 24){
+              let j = Math.floor(Math.random()*spiderPAnic.length);
+              createCard(player, spiderPAnic[j]);
+            } else {
+              let k = Math.floor(Math.random()*spiderGone.length);
+              createCard(player, spiderGone[k]);
+              playersTalking = false;
+            }
+            player = player === "p1" ? "p2" : "p1";
+          }, 500*i);
+        }, 3000);
+      }
     } else if (action.includes("name change")){
       const player = action.at(-1) === "0" ? "p1" : "p2";
       const theOtherPlayer = action.at(-1) === "0" ? "p2" : "p1";
@@ -532,10 +565,17 @@ const gameFlow = (() => {
       }
     }, time || 500);
   };
+  const blockGameInSeconds = (time) => {
+    for(let i = 0; i < (time/10)*100; i++){
+      setTimeout(() => {
+        gameInProcess = i < ((time/10)*100-1) ? false : true;
+      }, 100*i);
+    };
+  };
 
   return {winConditions, board, swapPlayer, placeMark, getCurrentPlayer,
     matchStart, matchStatus, turnsMinusOne, getTurns, resetTurns,
-    playDelay, getValidLines};
+    playDelay, getValidLines, blockGameInSeconds};
 })()
 
 
@@ -637,7 +677,7 @@ const aI = (() => {
             //play with the winning line, or add a rival line to block
             if(toWinLine.length > 0){
               freeSpaces = [validLines[toWinLine[0].i][cIdx]];
-              console.log(gameFlow.getCurrentPlayer() ? "p1" : "p2", "using win line on cell index", validLines[toWinLine[0].i][cIdx]);
+              // console.log(gameFlow.getCurrentPlayer() ? "p1" : "p2", "using win line on cell index", validLines[toWinLine[0].i][cIdx]);
             } else {
               freeSpaces = [validLines[toCompleteLines[rand].i][cIdx]];
             };
